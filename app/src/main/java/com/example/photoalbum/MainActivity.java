@@ -7,9 +7,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -32,12 +34,21 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
         Button show_add_album_dialog = findViewById(R.id.add_album_button);
         Button show_delete_album_dialog = findViewById(R.id.delete_album_button);
         Button show_rename_album_dialog = findViewById(R.id.rename_album_button);
 
         ListView albumsListView = findViewById(R.id.album_list_view);
 
+        //populating albumListView
+
+
+
+
+        //getting clicked item from list
         albumsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

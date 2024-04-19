@@ -8,19 +8,32 @@
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="388dp"
+        android:id="@+id/my_toolbar"
+        android:layout_width="382dp"
         android:layout_height="52dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="588dp"
         android:background="#BF6E89"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
-        android:layout_width="383dp"
-        android:layout_height="680dp"
+        android:layout_width="382dp"
+        android:layout_height="586dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView"
@@ -35,38 +48,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/delete_album_button"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
-                android:layout_marginLeft="10dp"
-                android:background="#ff6b9c"
                 android:text="Delete"
                 android:textAlignment="center"
-                app:cornerRadius="9dp" />
+                app:cornerRadius="30dp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             <Button
                 android:id="@+id/add_album_button"
-                style="@style/button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="5dp"
                 android:text="Add"
-                app:cornerRadius="30dp" />
+                app:cornerRadius="30dp"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             <Button
                 android:id="@+id/rename_album_button"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
-                android:background="#ff6b9c"
-                android:backgroundTint="@color/design_default_color_on_secondary"
-                android:paddingHorizontal="2dp"
                 android:text="Rename"
                 android:textAlignment="center"
-                app:cornerRadius="3dp"
-                app:iconTint="#FFFFFF"
-                app:iconTintMode="src_in" />
+                app:cornerRadius="30dp"
+                app:iconTintMode="src_in"
+                tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
         <ListView
