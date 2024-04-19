@@ -9,22 +9,22 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="413dp"
-        android:layout_height="50dp"
+        android:layout_width="388dp"
+        android:layout_height="52dp"
         android:background="#BF6E89"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
     <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="678dp"
+        android:layout_width="383dp"
+        android:layout_height="680dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="409dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Photo Albums"
             android:textAlignment="center"
@@ -50,9 +50,9 @@
 
             <Button
                 android:id="@+id/add_album_button"
+                style="@style/button"
                 android:text="Add"
-                app:cornerRadius="30dp"
-                style="@style/button" />
+                app:cornerRadius="30dp" />
 
             <Button
                 android:id="@+id/rename_album_button"
@@ -70,6 +70,7 @@
         </LinearLayout>
 
         <ListView
+            android:id="@+id/album_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
