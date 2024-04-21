@@ -1,29 +1,43 @@
 package com.example.photoalbum;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
     //private List<String> albumsList = new ArrayList<>();
+    private ActivityResultLauncher<String[]> createAlbum;
+
+    private static final int REQUEST_IMAGE_GET = 1;
+    public static final String EXTRA_ALLOW_MULTIPLE = "true";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         // Test
         EdgeToEdge.enable(this);
@@ -44,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
         ListView albumsListView = findViewById(R.id.album_list_view);
 
         //populating albumListView
-
-
-
+        String[] names = {"David", "Tanesha"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,names);
+        albumsListView.setAdapter(adapter);
 
         //getting clicked item from list
         albumsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,6 +88,23 @@ public class MainActivity extends AppCompatActivity {
                 showAddDialog();
             }
         });
+
+        // For initializing Photo Chooser
+        createAlbum = registerForActivityResult(
+                new ActivityResultContracts.OpenMultipleDocuments(),
+                new ActivityResultCallback<List<Uri>>() {
+                    @Override
+                    public void onActivityResult(List<Uri> uris) {
+                        // Create an album
+                        if (uris != null) {
+                            for (Uri uri : uris) {
+                                // Add to album
+                            }
+                        }
+                    }
+                }
+        );
+
 
     }
 
@@ -111,16 +142,18 @@ public class MainActivity extends AppCompatActivity {
     public void showAddDialog(){
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_album_dialog);
-
         Button btnClose = dialog.findViewById(R.id.close_button);
         Button addAlbum = dialog.findViewById(R.id.ok_button);
         EditText albumToBeAdded = dialog.findViewById((R.id.album_to_be_added));
-
+        // Add Album
         addAlbum.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                System.out.println(albumToBeAdded.getText());
-                //whatever function that deletes this album...
-
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                createAlbum.launch(new String[] {"image/*"}); // Correct launcher usage
+                dialog.dismiss();
             }
         });
         btnClose.setOnClickListener(new View.OnClickListener() {
