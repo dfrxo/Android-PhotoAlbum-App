@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultCallback;
@@ -22,22 +23,28 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    //private List<String> albumsList = new ArrayList<>();
     private ActivityResultLauncher<String[]> createAlbum;
-
     private static final int REQUEST_IMAGE_GET = 1;
-    public static final String EXTRA_ALLOW_MULTIPLE = "true";
 
+    private ArrayList<Photo> photoList = new ArrayList<>();
+    private String albumName = "";
 
+    private ArrayList<Album> albums;
+
+    private ListView albumsListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
+        // FIX LATER - load from memory
+        albums = new ArrayList<>();
+        ////////////////
         super.onCreate(savedInstanceState);
         // Test
         EdgeToEdge.enable(this);
@@ -55,12 +62,10 @@ public class MainActivity extends AppCompatActivity {
         Button show_delete_album_dialog = findViewById(R.id.delete_album_button);
         Button show_rename_album_dialog = findViewById(R.id.rename_album_button);
 
-        ListView albumsListView = findViewById(R.id.album_list_view);
+        albumsListView = findViewById(R.id.album_list_view);
 
         //populating albumListView
-        String[] names = {"David", "Tanesha"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,names);
-        albumsListView.setAdapter(adapter);
+        populateListView();
 
         //getting clicked item from list
         albumsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // 'i' is the index of the item clicked. this method will get that index.
                 String s = adapterView.getItemAtPosition(i).toString();
-//
-
+                System.out.println("hi my name is "+ s);
             }
         });
 
@@ -96,10 +100,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(List<Uri> uris) {
                         // Create an album
+                        photoList.clear();
                         if (uris != null) {
                             for (Uri uri : uris) {
-                                // Add to album
+                                photoList.add(new Photo(uri));
                             }
+                            Album a = new Album(albumName,photoList);
+                            albums.add(a);
+                            albumName = "";
+                            populateListView();
                         }
                     }
                 }
@@ -146,15 +155,28 @@ public class MainActivity extends AppCompatActivity {
         Button addAlbum = dialog.findViewById(R.id.ok_button);
         EditText albumToBeAdded = dialog.findViewById((R.id.album_to_be_added));
         // Add Album
+
         addAlbum.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                createAlbum.launch(new String[] {"image/*"}); // Correct launcher usage
+                albumName = albumToBeAdded.getText().toString();
+                if(!albumName.equals("")){
+                    createAlbum.launch(new String[] {"image/*"});
+                }
+                else{
+                    CharSequence text = "You Have To Name Your Album!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(MainActivity.this, text, duration);
+                    toast.show();
+                }
+             //   createAlbum.launch(new String[] {"image/*"});
                 dialog.dismiss();
             }
+
         });
         btnClose.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -186,4 +208,16 @@ public class MainActivity extends AppCompatActivity {
         btnClose.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
+    public void populateListView(){
+        // String[] names = {"David", "Tanesha"};
+        if(!albums.isEmpty()) {
+            String[] names = albums.stream()
+                            .map(a -> a.getName())
+                            .toArray(String[]::new);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, names);
+            albumsListView.setAdapter(adapter);
+        }
+    }
+
 }

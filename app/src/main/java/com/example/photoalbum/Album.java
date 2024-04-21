@@ -23,6 +23,10 @@ public class Album implements Serializable{
         this.name = name;
         photos = new ArrayList<>();
     }
+    public Album(String name, ArrayList<Photo> photos) {
+        this.name = name;
+        this.photos = photos;
+    }
     /**
      * Removes a photo from the album at the specified index.
      *
@@ -105,5 +109,9 @@ public class Album implements Serializable{
      */
     public void changeName(String name) {
         this.name = name;
+    }
+
+    public String toString(){
+        return name + " - Size: " + size();
     }
 }
