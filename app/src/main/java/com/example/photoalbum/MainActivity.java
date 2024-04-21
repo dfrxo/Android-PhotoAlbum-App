@@ -26,6 +26,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private String albumName = "";
 
     private ArrayList<Album> albums;
+    private ArrayList<String> storedAlbumNames;
 
     private ListView albumsListView;
     @Override
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         // FIX LATER - load from memory
         albums = new ArrayList<>();
+        storedAlbumNames = new ArrayList<>();
         ////////////////
         super.onCreate(savedInstanceState);
         // Test
@@ -107,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             Album a = new Album(albumName,photoList);
                             albums.add(a);
+                            storedAlbumNames.add(albumName);
                             albumName = "";
                             populateListView();
                         }
@@ -132,9 +136,27 @@ public class MainActivity extends AppCompatActivity {
 
         deleteAlbum.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                System.out.println(albumToBeDeleted.getText());
-                //whatever function that deletes this album...
+                String temp = albumToBeDeleted.getText().toString();
+                if(temp!="" && storedAlbumNames.contains(temp)){
+                    storedAlbumNames.remove(temp);
+                    Album tempAlb=null;
+                    Optional<Album> a = albums.stream()
+                            .filter(album -> {return album.getName().equals(temp);})
+                            .findFirst();
+                    if(a.isPresent()){
+                        tempAlb = a.get();
+                    }
+                    albums.remove(tempAlb);
+                    populateListView();
+                }
+                else{
+                    CharSequence text = "Album Doesn't Exist!";
+                    int duration = Toast.LENGTH_SHORT;
 
+                    Toast toast = Toast.makeText(MainActivity.this, text, duration);
+                    toast.show();
+                }
+                dialog.dismiss();
             }
         });
         btnClose.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +185,15 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 albumName = albumToBeAdded.getText().toString();
-                if(!albumName.equals("")){
+
+                if(storedAlbumNames.contains(albumName)){
+                    CharSequence text = "You Already Have An Album With That Name!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(MainActivity.this, text, duration);
+                    toast.show();
+                }
+                else if(!albumName.equals("")){
                     createAlbum.launch(new String[] {"image/*"});
                 }
                 else{
@@ -173,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(MainActivity.this, text, duration);
                     toast.show();
                 }
-             //   createAlbum.launch(new String[] {"image/*"});
                 dialog.dismiss();
             }
 
@@ -199,10 +228,36 @@ public class MainActivity extends AppCompatActivity {
         EditText newAlbumName = dialog.findViewById((R.id.new_album_name));
         renameAlbum.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                System.out.println(currentAlbumName.getText());
-                System.out.println(newAlbumName.getText());
-                //whatever function that deletes this album...
+                String newName = currentAlbumName.getText().toString();
+                String old = newAlbumName.getText().toString();
+                if(storedAlbumNames.contains(newName)){
+                    CharSequence text = "You Already Have An Album With That Name!";
+                    int duration = Toast.LENGTH_SHORT;
 
+                    Toast toast = Toast.makeText(MainActivity.this, text, duration);
+                    toast.show();
+                }
+                else if(storedAlbumNames.contains(old)) {
+                    Optional<Album> temp = albums.stream()
+                            .filter(a -> a.getName().equals(old))
+                            .findFirst();
+                    Album a = null;
+                    if (temp.isPresent()) {
+                        a = temp.get();
+                    }
+                    storedAlbumNames.remove(old);
+                    storedAlbumNames.add(newName);
+                    a.changeName(newName);
+                    populateListView();
+                }
+                else{
+                    CharSequence text = "That Current Album Doesn't Exist";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(MainActivity.this, text, duration);
+                    toast.show();
+                }
+                dialog.dismiss();
             }
         });
         btnClose.setOnClickListener(view -> dialog.dismiss());
@@ -210,14 +265,14 @@ public class MainActivity extends AppCompatActivity {
     }
     public void populateListView(){
         // String[] names = {"David", "Tanesha"};
-        if(!albums.isEmpty()) {
-            String[] names = albums.stream()
-                            .map(a -> a.getName())
-                            .toArray(String[]::new);
+        String[] names = albums.stream()
+                .map(a -> a.toString())
+                .toArray(String[]::new);
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, names);
-            albumsListView.setAdapter(adapter);
-        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, names);
+        albumsListView.setAdapter(adapter);
+
+
     }
 
 }

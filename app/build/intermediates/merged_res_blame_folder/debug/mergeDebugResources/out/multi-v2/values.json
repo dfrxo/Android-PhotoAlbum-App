@@ -59,23 +59,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\vsh00\\AndroidStudioProjects\\Android-PhotoAlbum-App1\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "5,10,3,1,2,4,6,8,9,7",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "239,447,114,17,66,171,272,356,399,307",
-                        "endColumns": "31,41,55,47,46,66,33,41,46,47",
-                        "endOffsets": "266,484,165,60,108,233,301,393,441,350"
-                    },
-                    "to": {
-                        "startLines": "1939,1967,1968,1970,1982,1983,2100,2106,2115,2117",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "128334,130232,130274,130413,132077,132124,148714,149550,150501,150619",
-                        "endColumns": "31,41,55,47,46,66,33,41,46,47",
-                        "endOffsets": "128361,130269,130325,130456,132119,132186,148743,149587,150543,150662"
-                    }
-                },
-                {
                     "source": "C:\\Users\\vsh00\\.gradle\\caches\\transforms-4\\d98c3e310d2ff2c85b546b12e5986cef\\transformed\\gridlayout-1.0.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "190,2,73",
@@ -95,26 +78,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\vsh00\\AndroidStudioProjects\\Android-PhotoAlbum-App1\\app\\src\\main\\res\\values\\themes.xml",
-                    "from": {
-                        "startLines": "2,7",
-                        "startColumns": "4,4",
-                        "startOffsets": "102,332",
-                        "endLines": "5,7",
-                        "endColumns": "12,68",
-                        "endOffsets": "324,396"
-                    },
-                    "to": {
-                        "startLines": "2544,6518",
-                        "startColumns": "4,4",
-                        "startOffsets": "178784,457427",
-                        "endLines": "2547,6518",
-                        "endColumns": "12,67",
-                        "endOffsets": "178897,457490"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\vsh00\\AndroidStudioProjects\\Android-PhotoAlbum-App1\\app\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\Users\\vsh00\\AndroidStudioProjects\\Android-PhotoAlbum-App\\app\\src\\main\\res\\values\\colors.xml",
                     "from": {
                         "startLines": "2,4,3",
                         "startColumns": "4,4,4",
@@ -222,6 +186,25 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\vsh00\\AndroidStudioProjects\\Android-PhotoAlbum-App\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "59",
+                        "endLines": "7",
+                        "endColumns": "12",
+                        "endOffsets": "212"
+                    },
+                    "to": {
+                        "startLines": "9146",
+                        "startColumns": "4",
+                        "startOffsets": "634922",
+                        "endLines": "9150",
+                        "endColumns": "12",
+                        "endOffsets": "635071"
+                    }
+                },
+                {
                     "source": "C:\\Users\\vsh00\\.gradle\\caches\\transforms-4\\0047257a716c273d30506e23ca800a5c\\transformed\\appcompat-resources-1.6.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,18,24,34,50",
@@ -238,6 +221,25 @@
                         "endLines": "9280,9286,9296,12947,12951",
                         "endColumns": "24,24,24,24,24",
                         "endOffsets": "639536,639714,639998,774973,775100"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\vsh00\\AndroidStudioProjects\\Android-PhotoAlbum-App\\app\\src\\main\\res\\values\\themes.xml",
+                    "from": {
+                        "startLines": "2,7",
+                        "startColumns": "4,4",
+                        "startOffsets": "102,332",
+                        "endLines": "5,7",
+                        "endColumns": "12,68",
+                        "endOffsets": "324,396"
+                    },
+                    "to": {
+                        "startLines": "2544,6518",
+                        "startColumns": "4,4",
+                        "startOffsets": "178784,457427",
+                        "endLines": "2547,6518",
+                        "endColumns": "12,67",
+                        "endOffsets": "178897,457490"
                     }
                 },
                 {
@@ -274,6 +276,23 @@
                         "startOffsets": "119889,119929,121061,121285,121340,122836,122890,122942,122991,123052",
                         "endColumns": "39,46,42,54,46,53,51,48,60,49",
                         "endOffsets": "119924,119971,121099,121335,121382,122885,122937,122986,123047,123097"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\vsh00\\AndroidStudioProjects\\Android-PhotoAlbum-App\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "5,10,3,1,2,4,6,8,9,7",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "239,447,114,17,66,171,272,356,399,307",
+                        "endColumns": "31,41,55,47,46,66,33,41,46,47",
+                        "endOffsets": "266,484,165,60,108,233,301,393,441,350"
+                    },
+                    "to": {
+                        "startLines": "1939,1967,1968,1970,1982,1983,2100,2106,2115,2117",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "128334,130232,130274,130413,132077,132124,148714,149550,150501,150619",
+                        "endColumns": "31,41,55,47,46,66,33,41,46,47",
+                        "endOffsets": "128361,130269,130325,130456,132119,132186,148743,149587,150543,150662"
                     }
                 },
                 {
@@ -346,25 +365,6 @@
                         "startOffsets": "123227",
                         "endColumns": "42",
                         "endOffsets": "123265"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\vsh00\\AndroidStudioProjects\\Android-PhotoAlbum-App1\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "59",
-                        "endLines": "7",
-                        "endColumns": "12",
-                        "endOffsets": "212"
-                    },
-                    "to": {
-                        "startLines": "9146",
-                        "startColumns": "4",
-                        "startOffsets": "634922",
-                        "endLines": "9150",
-                        "endColumns": "12",
-                        "endOffsets": "635071"
                     }
                 },
                 {
