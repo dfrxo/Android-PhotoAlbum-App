@@ -1,0 +1,6 @@
+com.example.photoalbum.test.app-core-1.5.0-0 C:\Users\TANESHA\.gradle\caches\transforms-4\3e2838aa775c80061fd3873f83e8c4ee\transformed\core-1.5.0\res
+com.example.photoalbum.test.app-annotation-experimental-1.3.0-1 C:\Users\TANESHA\.gradle\caches\transforms-4\cac5396b7f0546b7565990c7daa81d9b\transformed\annotation-experimental-1.3.0\res
+com.example.photoalbum.test.app-androidTest-2 C:\Users\TANESHA\AndroidStudioProjects\Android-PhotoAlbum-App\app\build\generated\res\resValues\androidTest\debug
+com.example.photoalbum.test.app-mergeDebugAndroidTestResources-3 C:\Users\TANESHA\AndroidStudioProjects\Android-PhotoAlbum-App\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.example.photoalbum.test.app-mergeDebugAndroidTestResources-4 C:\Users\TANESHA\AndroidStudioProjects\Android-PhotoAlbum-App\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.example.photoalbum.test.app-debugAndroidTest-5 C:\Users\TANESHA\AndroidStudioProjects\Android-PhotoAlbum-App\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
