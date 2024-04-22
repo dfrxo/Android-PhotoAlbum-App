@@ -17,4 +17,6 @@
     <string name="move">Move</string>
     <string name="edit">Edit</string>
     <string name="album_name">Next</string>
+    <string name="chose_file">Choose Images</string>
+    <string name="empty_album">Create Empty</string>
 </resources>
