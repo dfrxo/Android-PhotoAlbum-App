@@ -13,10 +13,10 @@
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="person">Person</string>
-    <string name="location">Next</string>
+    <string name="location">Location</string>
     <string name="move">Move</string>
     <string name="edit">Edit</string>
-    <string name="album_name">Next</string>
+    <string name="album_name">Album Name</string>
     <string name="chose_file">Choose Images</string>
     <string name="empty_album">Create Empty</string>
 </resources>
