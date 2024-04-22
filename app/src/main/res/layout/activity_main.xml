@@ -98,7 +98,8 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/button_color"
                 android:paddingHorizontal="0dp"
-                android:text="@string/search" />
+                android:text="@string/search"
+                tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
         <ListView
