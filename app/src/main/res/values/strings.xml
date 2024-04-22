@@ -9,4 +9,7 @@
     <string name="search">Search</string>
     <string name="slidshow">Slideshow</string>
     <string name="add_image">Add</string>
+    <string name="edit_tag">Edit</string>
+    <string name="prev">Prev</string>
+    <string name="next">Next</string>
 </resources>
