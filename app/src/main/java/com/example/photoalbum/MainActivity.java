@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
         populateListView();
 
 
+        //albumsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+
         //getting clicked item from list
         albumsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
