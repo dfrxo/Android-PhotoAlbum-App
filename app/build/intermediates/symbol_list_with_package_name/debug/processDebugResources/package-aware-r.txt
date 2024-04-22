@@ -2963,6 +2963,7 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable cat03
 drawable design_fab_background
 drawable design_ic_visibility
 drawable design_ic_visibility_off
@@ -3041,6 +3042,7 @@ drawable mtrl_switch_thumb_unchecked_pressed
 drawable mtrl_switch_track
 drawable mtrl_switch_track_decoration
 drawable mtrl_tabs_default_indicator
+drawable muskcateer
 drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
@@ -3131,6 +3133,7 @@ id add
 id add_album_button
 id add_image_button
 id album_list_view
+id album_name
 id album_name_display
 id album_to_be_added
 id alertTitle
@@ -3144,6 +3147,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id apply_changes_button
 id arc
 id asConfigured
 id async
@@ -3209,6 +3213,7 @@ id decelerateAndComplete
 id decor_content_parent
 id default_activity_button
 id delete_album_button
+id delete_image_button
 id deltaRelative
 id dependency_ordering
 id design_bottom_sheet
@@ -3286,6 +3291,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id image_preview
 id immediateStop
 id included
 id indeterminate
@@ -3306,6 +3312,8 @@ id line3
 id linear
 id listMode
 id list_item
+id location_tag
+id location_tag_input
 id m3_side_sheet
 id main
 id marquee
@@ -3343,6 +3351,7 @@ id month_navigation_next
 id month_navigation_previous
 id month_title
 id motion_base
+id move_button
 id mtrl_anchor_parent
 id mtrl_calendar_day_selector_frame
 id mtrl_calendar_days_of_week
@@ -3369,6 +3378,10 @@ id mtrl_view_tag_bottom_padding
 id multiply
 id my_toolbar
 id my_toolbar2
+id my_toolbar3
+id my_toolbar4
+id my_toolbar5
+id my_toolbar6
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -3380,6 +3393,7 @@ id never
 id neverCompleteToEnd
 id neverCompleteToStart
 id new_album_name
+id next_button
 id noScroll
 id noState
 id none
@@ -3420,11 +3434,14 @@ id path
 id pathRelative
 id peekHeight
 id percent
+id person_tag
+id person_tag_input
 id photoListView
 id pin
 id position
 id postLayout
 id pressed
+id prev_button
 id progress_circular
 id progress_horizontal
 id radio
@@ -3526,10 +3543,15 @@ id textSpacerNoTitle
 id textStart
 id textTop
 id textView
+id textView10
 id textView2
 id textView3
 id textView4
 id textView5
+id textView6
+id textView7
+id textView8
+id textView9
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3712,6 +3734,8 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout details_page
+layout edit_details_page
 layout images_list
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
@@ -3771,9 +3795,11 @@ layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
 layout rename_album_dialog
+layout search_image
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
+layout slideshow
 layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
 mipmap ic_launcher_round
@@ -3808,6 +3834,7 @@ string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string add_image
 string add_new_album
+string album_name
 string androidx_startup
 string app_name
 string appbar_scrolling_view_behavior
@@ -3822,6 +3849,7 @@ string character_counter_overflowed_content_description
 string character_counter_pattern
 string clear_text_end_icon_content_description
 string close_button
+string edit
 string edit_tag
 string enternewalbumname
 string error_a11y_label
@@ -3832,6 +3860,7 @@ string fab_transformation_sheet_behavior
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string item_view_role_description
+string location
 string m3_exceed_max_badge_text_suffix
 string m3_ref_typeface_brand_medium
 string m3_ref_typeface_brand_regular
@@ -3870,6 +3899,7 @@ string material_timepicker_minute
 string material_timepicker_pm
 string material_timepicker_select_time
 string material_timepicker_text_input_mode_description
+string move
 string mtrl_badge_numberless_content_description
 string mtrl_checkbox_button_icon_path_checked
 string mtrl_checkbox_button_icon_path_group_name
@@ -3939,6 +3969,7 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string person
 string prev
 string search
 string search_menu_title

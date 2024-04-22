@@ -6,12 +6,17 @@
     <string name="X">X</string>
     <string name="add_image">Add</string>
     <string name="add_new_album">Add New Album</string>
+    <string name="album_name">Next</string>
     <string name="app_name">PhotoAlbum</string>
     <string name="close_button">Close</string>
+    <string name="edit">Edit</string>
     <string name="edit_tag">Edit</string>
     <string name="enternewalbumname">Enter New Album Name</string>
+    <string name="location">Next</string>
+    <string name="move">Move</string>
     <string name="next">Next</string>
     <string name="ok">OK</string>
+    <string name="person">Person</string>
     <string name="prev">Prev</string>
     <string name="search">Search</string>
     <string name="slidshow">Slideshow</string>
