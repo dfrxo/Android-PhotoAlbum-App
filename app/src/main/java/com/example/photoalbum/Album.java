@@ -20,7 +20,7 @@ public class Album implements Serializable{
      * @param name The name of the album.
      */
     public Album(String name) {
-        this.name = name;
+        this.name = name.trim().toLowerCase();
         photos = new ArrayList<>();
     }
     public Album(String name, ArrayList<Photo> photos) {

@@ -25,13 +25,14 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/my_toolbar2"
                 android:layout_width="380dp"
-                android:layout_height="52dp"
+                android:layout_height="28dp"
                 android:layout_marginBottom="586dp"
                 android:background="#6D6875"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/album_name_display"
@@ -97,6 +98,7 @@
             </LinearLayout>
 
             <ListView
+                android:id="@+id/photoListView"
                 android:layout_width="380dp"
                 android:layout_height="503dp"
                 android:layout_marginStart="1dp"

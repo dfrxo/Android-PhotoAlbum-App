@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -41,25 +44,31 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> storedAlbumNames;
 
     private ListView albumsListView;
+    private MainUser mainUser;
+
+    public static final String ALBUM_NAME = "album_name";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // FIX LATER - load from memory
-        albums = new ArrayList<>();
-        storedAlbumNames = new ArrayList<>();
-        ////////////////
+        mainUser = MainUser.loadSession(this);
+        albums = mainUser.getAlbums();
+        storedAlbumNames = mainUser.getStoredAlbumNames();
+
         super.onCreate(savedInstanceState);
-        // Test
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
+
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Button show_add_album_dialog = findViewById(R.id.add_album_button);
         Button show_delete_album_dialog = findViewById(R.id.delete_album_button);
@@ -70,13 +79,14 @@ public class MainActivity extends AppCompatActivity {
         //populating albumListView
         populateListView();
 
+
         //getting clicked item from list
         albumsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // 'i' is the index of the item clicked. this method will get that index.
                 String s = adapterView.getItemAtPosition(i).toString();
-                System.out.println("hi my name is "+ s);
+                AlbumImagesActivity(i);
+
             }
         });
 
@@ -112,17 +122,24 @@ public class MainActivity extends AppCompatActivity {
                             albums.add(a);
                             storedAlbumNames.add(albumName);
                             albumName = "";
+
+                            mainUser.setAlbums(albums);
+                            mainUser.setStoredAlbumNames(storedAlbumNames);
+                            mainUser.saveSession(MainActivity.this);
+
                             populateListView();
                         }
                     }
                 }
         );
-
-
     }
-
-
-
+    private void AlbumImagesActivity(int pos) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ALBUM_NAME,albums.get(pos).getName());
+        Intent intent = new Intent(this, AlbumImagesActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
     /**
      * To DELETE an album.
      */
@@ -147,7 +164,13 @@ public class MainActivity extends AppCompatActivity {
                         tempAlb = a.get();
                     }
                     albums.remove(tempAlb);
+
+                    mainUser.setAlbums(albums);
+                    mainUser.setStoredAlbumNames(storedAlbumNames);
+                    mainUser.saveSession(MainActivity.this);
+
                     populateListView();
+
                 }
                 else{
                     CharSequence text = "Album Doesn't Exist!";
@@ -184,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                albumName = albumToBeAdded.getText().toString();
+                albumName = albumToBeAdded.getText().toString().toLowerCase();
 
                 if(storedAlbumNames.contains(albumName)){
                     CharSequence text = "You Already Have An Album With That Name!";
@@ -228,8 +251,8 @@ public class MainActivity extends AppCompatActivity {
         EditText newAlbumName = dialog.findViewById((R.id.new_album_name));
         renameAlbum.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                String newName = currentAlbumName.getText().toString();
-                String old = newAlbumName.getText().toString();
+                String newName = currentAlbumName.getText().toString().trim().toLowerCase();
+                String old = newAlbumName.getText().toString().trim().toLowerCase();
                 if(storedAlbumNames.contains(newName)){
                     CharSequence text = "You Already Have An Album With That Name!";
                     int duration = Toast.LENGTH_SHORT;
@@ -248,6 +271,11 @@ public class MainActivity extends AppCompatActivity {
                     storedAlbumNames.remove(old);
                     storedAlbumNames.add(newName);
                     a.changeName(newName);
+
+                    mainUser.setAlbums(albums);
+                    mainUser.setStoredAlbumNames(storedAlbumNames);
+                    mainUser.saveSession(MainActivity.this);
+
                     populateListView();
                 }
                 else{
@@ -266,13 +294,11 @@ public class MainActivity extends AppCompatActivity {
     public void populateListView(){
         // String[] names = {"David", "Tanesha"};
         String[] names = albums.stream()
-                .map(a -> a.toString())
+                .map(a -> a.getName())
                 .toArray(String[]::new);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, names);
         albumsListView.setAdapter(adapter);
-
-
     }
 
 }

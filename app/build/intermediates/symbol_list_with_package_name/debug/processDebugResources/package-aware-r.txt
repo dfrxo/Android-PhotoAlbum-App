@@ -3420,6 +3420,7 @@ id path
 id pathRelative
 id peekHeight
 id percent
+id photoListView
 id pin
 id position
 id postLayout
@@ -3821,6 +3822,7 @@ string character_counter_overflowed_content_description
 string character_counter_pattern
 string clear_text_end_icon_content_description
 string close_button
+string edit_tag
 string enternewalbumname
 string error_a11y_label
 string error_icon_content_description
@@ -3930,12 +3932,14 @@ string mtrl_switch_track_decoration_path
 string mtrl_switch_track_path
 string mtrl_timepicker_cancel
 string mtrl_timepicker_confirm
+string next
 string ok
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string prev
 string search
 string search_menu_title
 string searchbar_scrolling_view_behavior

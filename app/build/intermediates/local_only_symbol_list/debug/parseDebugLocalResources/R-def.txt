@@ -18,6 +18,7 @@ id my_toolbar
 id my_toolbar2
 id new_album_name
 id ok_button
+id photoListView
 id rename_album_button
 id search_image_button
 id slieshow_button
@@ -40,8 +41,11 @@ string add_image
 string add_new_album
 string app_name
 string close_button
+string edit_tag
 string enternewalbumname
+string next
 string ok
+string prev
 string search
 string slidshow
 string type_here
