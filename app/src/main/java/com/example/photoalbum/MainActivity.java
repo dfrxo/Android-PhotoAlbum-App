@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView albumsListView;
     private MainUser mainUser;
+
+    public static final String ALBUM_NAME = "album_name";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -89,9 +92,9 @@ public class MainActivity extends AppCompatActivity {
         albumsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // 'i' is the index of the item clicked. this method will get that index.
                 String s = adapterView.getItemAtPosition(i).toString();
-                System.out.println("hi my name is "+ s);
+                AlbumImagesActivity(i);
+
             }
         });
 
@@ -137,12 +140,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-
-
     }
-
-
-
+    private void AlbumImagesActivity(int pos) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ALBUM_NAME,albums.get(pos).getName());
+        Intent intent = new Intent(this, AlbumImagesActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
     /**
      * To DELETE an album.
      */
@@ -167,6 +172,11 @@ public class MainActivity extends AppCompatActivity {
                         tempAlb = a.get();
                     }
                     albums.remove(tempAlb);
+
+                    mainUser.setAlbums(albums);
+                    mainUser.setStoredAlbumNames(storedAlbumNames);
+                    mainUser.saveSession(MainActivity.this);
+
                     populateListView();
 
                 }
@@ -205,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                albumName = albumToBeAdded.getText().toString();
+                albumName = albumToBeAdded.getText().toString().toLowerCase();
 
                 if(storedAlbumNames.contains(albumName)){
                     CharSequence text = "You Already Have An Album With That Name!";
@@ -249,8 +259,8 @@ public class MainActivity extends AppCompatActivity {
         EditText newAlbumName = dialog.findViewById((R.id.new_album_name));
         renameAlbum.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                String newName = currentAlbumName.getText().toString();
-                String old = newAlbumName.getText().toString();
+                String newName = currentAlbumName.getText().toString().trim().toLowerCase();
+                String old = newAlbumName.getText().toString().trim().toLowerCase();
                 if(storedAlbumNames.contains(newName)){
                     CharSequence text = "You Already Have An Album With That Name!";
                     int duration = Toast.LENGTH_SHORT;
@@ -269,6 +279,11 @@ public class MainActivity extends AppCompatActivity {
                     storedAlbumNames.remove(old);
                     storedAlbumNames.add(newName);
                     a.changeName(newName);
+
+                    mainUser.setAlbums(albums);
+                    mainUser.setStoredAlbumNames(storedAlbumNames);
+                    mainUser.saveSession(MainActivity.this);
+
                     populateListView();
                 }
                 else{

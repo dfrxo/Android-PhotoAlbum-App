@@ -20,17 +20,21 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 public class AlbumImagesActivity extends AppCompatActivity{
+    private Album a;
+    private String albumName;
+    private MainUser mainUser;
 
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            //EdgeToEdge.enable(this);
-            setContentView(R.layout.images_list);
-
+        super.onCreate(savedInstanceState);
+        //EdgeToEdge.enable(this);
+        setContentView(R.layout.images_list);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar2);
         setSupportActionBar(myToolbar);
-
-        // Enable the Up button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Bundle bundle = getIntent().getExtras();
+        albumName = bundle.getString(MainActivity.ALBUM_NAME);
+
 
     }
 }
