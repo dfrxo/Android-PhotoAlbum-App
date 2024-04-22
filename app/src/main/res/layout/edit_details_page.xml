@@ -23,30 +23,18 @@
         android:id="@+id/delete_image_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="237dp"
-        android:layout_marginTop="107dp"
-        android:layout_marginEnd="27dp"
-        android:layout_marginBottom="485dp"
         android:backgroundTint="@color/button_color"
         android:text="Delete"
         app:cornerRadius="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="237dp"
+        tools:layout_editor_absoluteY="151dp" />
 
     <ImageView
         android:id="@+id/image_preview"
         android:layout_width="223dp"
         android:layout_height="175dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="159dp"
-        android:layout_marginBottom="411dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="86dp"
         tools:srcCompat="@drawable/muskcateer" />
 
     <TextView
@@ -131,5 +119,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="382dp"
+        android:layout_height="28dp"
+        android:text="@string/edit_tag"
+        android:textAlignment="center"
+        android:textColor="#7e9680"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="56dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
