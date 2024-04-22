@@ -1,6 +1,7 @@
 package com.example.photoalbum;
 
 import android.app.Dialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,9 +22,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.List;
 
 public class AlbumImagesActivity extends AppCompatActivity{
     private Album a;
+    private ArrayList<Photo> photos;
+    private ArrayList<Uri> uris = new ArrayList<>();
     private String albumName;
     private MainUser mainUser;
     private ListView photoListView;
@@ -46,10 +50,16 @@ public class AlbumImagesActivity extends AppCompatActivity{
                 .filter(x -> x.getName().equals(albumName))
                 .findAny();
         a = temp.get();
+        photos = a.getPhotos();
+        for(Photo p: photos){
+            uris.add(p.getUri());
+        }
+
 
         photoListView = findViewById(R.id.photoListView);
-        populateListView();
+        ImageAdapter images = new ImageAdapter(this,uris);
 
+        photoListView.setAdapter(images);
 
     }
     private void populateListView(){

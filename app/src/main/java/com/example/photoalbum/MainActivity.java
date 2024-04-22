@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         populateListView();
 
 
-        //albumsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+     //   albumsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 
         //getting clicked item from list
@@ -119,6 +119,12 @@ public class MainActivity extends AppCompatActivity {
                         photoList.clear();
                         if (uris != null) {
                             for (Uri uri : uris) {
+                                // Allows for secure access
+                                final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                                if(getIntent() != null && getIntent().getFlags() != 0){
+                                    getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                                }
                                 photoList.add(new Photo(uri));
                             }
                             Album a = new Album(albumName,photoList);
@@ -132,6 +138,12 @@ public class MainActivity extends AppCompatActivity {
 
                             populateListView();
                         }
+//                        for (Uri uri : uris) {
+//                            final int takeFlags = getIntent().getFlags()
+//                                    & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//                            getContentResolver().takePersistableUriPermission(uri, takeFlags);
+//                        }
                     }
                 }
         );
