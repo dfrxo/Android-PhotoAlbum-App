@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -41,12 +44,21 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> storedAlbumNames;
 
     private ListView albumsListView;
+    private MainUser mainUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        mainUser = MainUser.loadSession(this);
+
+
         // FIX LATER - load from memory
-        albums = new ArrayList<>();
-        storedAlbumNames = new ArrayList<>();
+        albums = mainUser.getAlbums();
+
+
+        albums.stream().flatMap(a -> a.getPhotos().stream()).
+                forEach(Photo::restoreUri);
+
+        storedAlbumNames = mainUser.getStoredAlbumNames();
         ////////////////
         super.onCreate(savedInstanceState);
         // Test
@@ -69,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
         //populating albumListView
         populateListView();
+        String dir = System.getProperty("user.dir");
+        System.out.println("HEYYY");
+        System.out.println(dir);
 
         //getting clicked item from list
         albumsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -112,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
                             albums.add(a);
                             storedAlbumNames.add(albumName);
                             albumName = "";
+
+                            mainUser.setAlbums(albums);
+                            mainUser.setStoredAlbumNames(storedAlbumNames);
+                            mainUser.saveSession(MainActivity.this);
+
                             populateListView();
                         }
                     }
@@ -148,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     albums.remove(tempAlb);
                     populateListView();
+
                 }
                 else{
                     CharSequence text = "Album Doesn't Exist!";
@@ -266,13 +287,11 @@ public class MainActivity extends AppCompatActivity {
     public void populateListView(){
         // String[] names = {"David", "Tanesha"};
         String[] names = albums.stream()
-                .map(a -> a.toString())
+                .map(a -> a.getName())
                 .toArray(String[]::new);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, names);
         albumsListView.setAdapter(adapter);
-
-
     }
 
 }

@@ -13,8 +13,9 @@ public class Photo implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private String name;
-    private Uri uri;
+    private transient Uri uri;
     private HashSet<Tag> tags;
+    private String uriString;
 
     /**
      * Constructs a Photo object with the specified file path.
@@ -24,6 +25,7 @@ public class Photo implements Serializable{
      */
     public Photo(Uri uri) {
         this.uri = uri;
+        this.uriString = uri.toString();
         tags = new HashSet<>();
     }
     /**
@@ -59,4 +61,7 @@ public class Photo implements Serializable{
         tags.remove(t);
     }
 
+    public void restoreUri() {
+        this.uri = Uri.parse(uriString);
+    }
 }
