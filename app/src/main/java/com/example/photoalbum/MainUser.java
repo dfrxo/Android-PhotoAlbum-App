@@ -69,6 +69,12 @@ public class MainUser implements Serializable {
             e.printStackTrace();
             mainUser = new MainUser();
         }
+        mainUser.setUri();
+
         return mainUser;
+    }
+    public void setUri(){
+        albums.stream().flatMap(a -> a.getPhotos().stream()).
+                forEach(Photo::restoreUri);
     }
 }

@@ -18,6 +18,7 @@ id my_toolbar
 id my_toolbar2
 id new_album_name
 id ok_button
+id photoListView
 id rename_album_button
 id search_image_button
 id slieshow_button

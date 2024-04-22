@@ -52,29 +52,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         mainUser = MainUser.loadSession(this);
-
-
-        // FIX LATER - load from memory
         albums = mainUser.getAlbums();
-
-
-        albums.stream().flatMap(a -> a.getPhotos().stream()).
-                forEach(Photo::restoreUri);
-
         storedAlbumNames = mainUser.getStoredAlbumNames();
-        ////////////////
+
         super.onCreate(savedInstanceState);
-        // Test
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
+
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Button show_add_album_dialog = findViewById(R.id.add_album_button);
         Button show_delete_album_dialog = findViewById(R.id.delete_album_button);
@@ -84,9 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         //populating albumListView
         populateListView();
-        String dir = System.getProperty("user.dir");
-        System.out.println("HEYYY");
-        System.out.println(dir);
+
 
         //getting clicked item from list
         albumsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
