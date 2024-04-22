@@ -14,7 +14,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="588dp"
-        android:background="#BF6E89"
+        android:background="#6d6875"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="Photo Albums"
             android:textAlignment="center"
-            android:textColor="#CF8A74"
+            android:textColor="#7e9680"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -57,6 +57,7 @@
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
+                android:backgroundTint="@color/button_color"
                 android:text="Delete"
                 android:textAlignment="center"
                 app:cornerRadius="30dp"
@@ -68,6 +69,7 @@
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
+                android:backgroundTint="@color/button_color"
                 android:text="Add"
                 app:cornerRadius="30dp"
                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
@@ -78,6 +80,7 @@
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
+                android:backgroundTint="@color/button_color"
                 android:text="Rename"
                 android:textAlignment="center"
                 app:cornerRadius="30dp"

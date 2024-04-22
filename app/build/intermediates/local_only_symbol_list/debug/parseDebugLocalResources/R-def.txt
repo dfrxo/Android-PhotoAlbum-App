@@ -40,8 +40,11 @@ string add_image
 string add_new_album
 string app_name
 string close_button
+string edit_tag
 string enternewalbumname
+string next
 string ok
+string prev
 string search
 string slidshow
 string type_here

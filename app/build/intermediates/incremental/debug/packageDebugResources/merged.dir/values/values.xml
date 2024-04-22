@@ -8,8 +8,11 @@
     <string name="add_new_album">Add New Album</string>
     <string name="app_name">PhotoAlbum</string>
     <string name="close_button">Close</string>
+    <string name="edit_tag">Edit</string>
     <string name="enternewalbumname">Enter New Album Name</string>
+    <string name="next">Next</string>
     <string name="ok">OK</string>
+    <string name="prev">Prev</string>
     <string name="search">Search</string>
     <string name="slidshow">Slideshow</string>
     <string name="type_here">Type here</string>
