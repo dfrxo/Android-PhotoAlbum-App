@@ -138,12 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
                             populateListView();
                         }
-//                        for (Uri uri : uris) {
-//                            final int takeFlags = getIntent().getFlags()
-//                                    & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-//                                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//                            getContentResolver().takePersistableUriPermission(uri, takeFlags);
-//                        }
                     }
                 }
         );
@@ -213,9 +207,41 @@ public class MainActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.add_album_dialog);
         Button btnClose = dialog.findViewById(R.id.close_button);
         Button addAlbum = dialog.findViewById(R.id.ok_button);
+        Button empty_album_button = dialog.findViewById(R.id.empty_album_button);
         EditText albumToBeAdded = dialog.findViewById((R.id.album_to_be_added));
         // Add Album
+        empty_album_button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                albumName = albumToBeAdded.getText().toString().toLowerCase();
 
+                if(storedAlbumNames.contains(albumName)){
+                    CharSequence text = "You Already Have An Album With That Name!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(MainActivity.this, text, duration);
+                    toast.show();
+                }
+                else if(!albumName.equals("")){
+                    albums.add(new Album(albumName));
+                    storedAlbumNames.add(albumName);
+                    albumName = "";
+
+                    mainUser.setAlbums(albums);
+                    mainUser.setStoredAlbumNames(storedAlbumNames);
+                    mainUser.saveSession(MainActivity.this);
+
+                    populateListView();
+                }
+                else{
+                    CharSequence text = "You Have To Name Your Album!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(MainActivity.this, text, duration);
+                    toast.show();
+                }
+                dialog.dismiss();
+            }
+        });
         addAlbum.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);

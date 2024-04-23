@@ -6,23 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import android.widget.TextView;
-
-import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.List;
 
 public class AlbumImagesActivity extends AppCompatActivity{
     private Album a;
@@ -32,6 +25,11 @@ public class AlbumImagesActivity extends AppCompatActivity{
     private MainUser mainUser;
     private ListView photoListView;
     private Button add_image_button;
+    private Button slideshow_button;
+    private int num=0;
+    private int size;
+    private ImageView imageView;
+    private Uri uri;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +49,81 @@ public class AlbumImagesActivity extends AppCompatActivity{
                 .findAny();
         a = temp.get();
         photos = a.getPhotos();
+        size = photos.size();
         for(Photo p: photos){
             uris.add(p.getUri());
         }
-
-
         photoListView = findViewById(R.id.photoListView);
         ImageAdapter images = new ImageAdapter(this,uris);
-
         photoListView.setAdapter(images);
 
+        add_image_button = findViewById(R.id.add_image_button);
+        slideshow_button = findViewById(R.id.slideshow_button);
+
+        // ListView handler
+        photoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String s = adapterView.getItemAtPosition(i).toString();
+                //AlbumImagesActivity(i);
+
+            }
+        });
+        // Slideshow handler
+        slideshow_button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                showSlideshowDialog();
+            }
+        });
+
+
+
     }
-    private void populateListView(){
-        ArrayList<Photo> photos1 = a.getPhotos();
+    public void showSlideshowDialog(){
+        if(size==0){
+
+            CharSequence text = "Your Album Is Empty!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(AlbumImagesActivity.this, text, duration);
+            toast.show();
+
+            return;
+        }
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.slideshow);
+        Button X_button = dialog.findViewById(R.id.X_button);
+        Button prev_button = dialog.findViewById(R.id.prev_button);
+        Button next_button = dialog.findViewById(R.id.next_button);
+        imageView = dialog.findViewById(R.id.image_preview);
+
+        if(a.size()!=0){
+            uri = photos.get(0).getUri();
+            imageView.setImageURI(uri);
+        }
+
+
+
+
+        next_button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                int size = a.size();
+
+
+            }
+        });
+        prev_button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+
+            }
+        });
+        X_button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+
+            }
+        });
+
+        dialog.show();
 
     }
 }
