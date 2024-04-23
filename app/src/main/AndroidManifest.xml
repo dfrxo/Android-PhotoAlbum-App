@@ -12,10 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PhotoAlbum"
         tools:targetApi="31">
+
         <activity
             android:name=".AlbumImagesActivity"
             android:exported="false"
             android:parentActivityName="com.example.photoalbum.MainActivity"/>
+
+        <activity
+            android:name=".PhotoViewActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.photoalbum.AlbumImagesActivity"/>
 
         <activity
             android:name=".MainActivity"

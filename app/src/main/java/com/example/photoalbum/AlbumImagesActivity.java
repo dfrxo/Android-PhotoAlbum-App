@@ -40,6 +40,9 @@ public class AlbumImagesActivity extends AppCompatActivity{
     private ActivityResultLauncher<String[]> addToAlbum;
     private ImageAdapter images;
 
+    public static final String PHOTO_NAME = "photo_name";
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -73,9 +76,9 @@ public class AlbumImagesActivity extends AppCompatActivity{
         photoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String s = adapterView.getItemAtPosition(i).toString();
-                //AlbumImagesActivity(i);
-
+                mainUser.changePhoto(photos.get(i));
+                mainUser.saveSession(AlbumImagesActivity.this);
+                PhotoViewActivity(i);
             }
         });
         // Slideshow handler
@@ -126,6 +129,13 @@ public class AlbumImagesActivity extends AppCompatActivity{
                 }
         );
     }
+    private void PhotoViewActivity(int pos) {
+        Bundle bundle = new Bundle();
+        bundle.putString(PHOTO_NAME,photos.get(pos).getUri().toString());
+        Intent intent = new Intent(this, PhotoViewActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
     public void showSlideshowDialog(){
         if(size==0){
 
@@ -174,6 +184,5 @@ public class AlbumImagesActivity extends AppCompatActivity{
         });
 
         dialog.show();
-
     }
 }

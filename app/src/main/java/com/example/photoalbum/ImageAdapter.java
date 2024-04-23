@@ -40,7 +40,7 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView == null) {
             imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(200,200));
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(300,300));
             imageView.setPadding(10,10,10,10);
         } else {
             imageView = (ImageView) convertView;

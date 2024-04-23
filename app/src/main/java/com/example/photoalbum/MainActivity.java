@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+ //       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         Button show_add_album_dialog = findViewById(R.id.add_album_button);

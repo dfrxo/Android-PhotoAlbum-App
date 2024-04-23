@@ -20,6 +20,8 @@ public class MainUser implements Serializable {
     private ArrayList<Album> albums;
     private ArrayList<String> storedAlbumNames;
 
+    private Photo currPhoto;
+
     private MainUser(){
         albums = new ArrayList<>();
         storedAlbumNames = new ArrayList<>();
@@ -30,6 +32,12 @@ public class MainUser implements Serializable {
     public void setStoredAlbumNames(ArrayList<String> storedAlbumNames) { this.storedAlbumNames = storedAlbumNames; }
     public void setAlbums(ArrayList<Album> albums) { this.albums = albums; }
 
+    public Photo getPhoto(){
+        return currPhoto;
+    }
+    public void changePhoto(Photo p){
+        currPhoto=p;
+    }
     public void saveSession(Context context) {
         try {
 
