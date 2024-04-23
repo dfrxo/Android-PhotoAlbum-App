@@ -41,6 +41,7 @@ public class AlbumImagesActivity extends AppCompatActivity{
     private ImageAdapter images;
 
     public static final String PHOTO_NAME = "photo_name";
+    public static final String ALBUM_NAME = "album_name";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class AlbumImagesActivity extends AppCompatActivity{
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Get chosen album
+
         Bundle bundle = getIntent().getExtras();
         albumName = bundle.getString(MainActivity.ALBUM_NAME);
         mainUser = MainUser.loadSession(this);
@@ -132,6 +134,7 @@ public class AlbumImagesActivity extends AppCompatActivity{
     private void PhotoViewActivity(int pos) {
         Bundle bundle = new Bundle();
         bundle.putString(PHOTO_NAME,photos.get(pos).getUri().toString());
+        bundle.putString(ALBUM_NAME,albumName);
         Intent intent = new Intent(this, PhotoViewActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

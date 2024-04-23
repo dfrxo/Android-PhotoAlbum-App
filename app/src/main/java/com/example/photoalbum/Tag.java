@@ -1,6 +1,8 @@
 package com.example.photoalbum;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * Contains data for the tag. Tag is a key value pair attached to a photo.
  * @author David Fink
@@ -13,6 +15,7 @@ public class Tag implements Serializable{
     private static final long serialVersionUID = 1L;
     private String key;
     private String value;
+    private ArrayList<String> values;
     /**
      * Constructs a Tag with the specified key and value.
      *
@@ -22,6 +25,13 @@ public class Tag implements Serializable{
     public Tag(String key, String value) {
         this.key=key.trim().toLowerCase();
         this.value=value.trim().toLowerCase();
+    }
+    public Tag(String key, ArrayList<String> values){
+        this.key=key.trim().toLowerCase();
+        this.values=values;
+    }
+    public ArrayList<String> getValues(){
+        return values;
     }
     /**
      * Returns the key of the tag.

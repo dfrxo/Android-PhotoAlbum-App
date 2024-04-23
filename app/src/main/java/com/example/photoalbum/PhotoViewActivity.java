@@ -1,5 +1,6 @@
 package com.example.photoalbum;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ public class PhotoViewActivity extends AppCompatActivity {
     private Button move_button;
     private Button apply_changes_button;
     private Photo photo;
+    private String albumName;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,16 @@ public class PhotoViewActivity extends AppCompatActivity {
         mainUser = MainUser.loadSession(PhotoViewActivity.this);
         photo = mainUser.getPhoto();
         Bundle bundle = getIntent().getExtras();
+        albumName = bundle.getString(AlbumImagesActivity.ALBUM_NAME);
     //    uriString = bundle.getString(AlbumImagesActivity.PHOTO_NAME);
         image_preview.setImageURI(photo.getUri());
-
-
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent intent = new Intent(this, AlbumImagesActivity.class);
+        intent.putExtra(MainActivity.ALBUM_NAME, albumName);
+        startActivity(intent);
+        finish();
+        return true;
     }
 }
