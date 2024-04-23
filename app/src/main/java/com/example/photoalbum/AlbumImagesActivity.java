@@ -96,30 +96,37 @@ public class AlbumImagesActivity extends AppCompatActivity{
         Button prev_button = dialog.findViewById(R.id.prev_button);
         Button next_button = dialog.findViewById(R.id.next_button);
         imageView = dialog.findViewById(R.id.image_preview);
+        num =0;
+        uri = photos.get(num).getUri();
+        imageView.setImageURI(uri);
 
-        if(a.size()!=0){
-            uri = photos.get(0).getUri();
-            imageView.setImageURI(uri);
-        }
 
 
 
 
         next_button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                int size = a.size();
-
-
+                if(num<size-1)
+                    num++;
+                else
+                    num=0;
+                uri = photos.get(num).getUri();
+                imageView.setImageURI(uri);
             }
         });
         prev_button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-
+                if(num>0)
+                    num--;
+                else
+                    num=size-1;
+                uri = photos.get(num).getUri();
+                imageView.setImageURI(uri);
             }
         });
         X_button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-
+                dialog.dismiss();
             }
         });
 
