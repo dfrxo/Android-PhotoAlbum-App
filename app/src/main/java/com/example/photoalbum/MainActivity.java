@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // For initializing Photo Chooser
+        // Anonymous class handles File Choosing
         createAlbum = registerForActivityResult(
                 new ActivityResultContracts.OpenMultipleDocuments(),
                 new ActivityResultCallback<List<Uri>>() {

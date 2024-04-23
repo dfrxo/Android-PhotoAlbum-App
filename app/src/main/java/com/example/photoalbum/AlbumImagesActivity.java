@@ -1,6 +1,7 @@
 package com.example.photoalbum;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -11,16 +12,22 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class AlbumImagesActivity extends AppCompatActivity{
     private Album a;
     private ArrayList<Photo> photos;
     private ArrayList<Uri> uris = new ArrayList<>();
+    private ArrayList<String> uriStrings = new ArrayList<>();
     private String albumName;
     private MainUser mainUser;
     private ListView photoListView;
@@ -30,7 +37,8 @@ public class AlbumImagesActivity extends AppCompatActivity{
     private int size;
     private ImageView imageView;
     private Uri uri;
-
+    private ActivityResultLauncher<String[]> addToAlbum;
+    private ImageAdapter images;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +60,10 @@ public class AlbumImagesActivity extends AppCompatActivity{
         size = photos.size();
         for(Photo p: photos){
             uris.add(p.getUri());
+            uriStrings.add(p.getUri().toString());
         }
         photoListView = findViewById(R.id.photoListView);
-        ImageAdapter images = new ImageAdapter(this,uris);
+        images = new ImageAdapter(this,uris);
         photoListView.setAdapter(images);
 
         add_image_button = findViewById(R.id.add_image_button);
@@ -75,9 +84,47 @@ public class AlbumImagesActivity extends AppCompatActivity{
                 showSlideshowDialog();
             }
         });
+        add_image_button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+                addToAlbum.launch(new String[] {"image/*"});
+            }
+        });
 
 
-
+        // Anonymous class handles File Choosing
+        addToAlbum = registerForActivityResult(
+                new ActivityResultContracts.OpenMultipleDocuments(),
+                new ActivityResultCallback<List<Uri>>() {
+                    @Override
+                    public void onActivityResult(List<Uri> newUris) {
+                        // Create an album
+                        if (newUris != null) {
+                            for (Uri uri : newUris) {
+                                if(uriStrings.contains(uri.toString())){
+                                    continue;
+                                }
+                                // Allows for secure access
+                                final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                                if(getIntent() != null && getIntent().getFlags() != 0){
+                                    getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                                }
+                                a.addPhoto(new Photo(uri));
+                                uris.add(uri);
+                                uriStrings.add(uri.toString());
+                            }
+                            mainUser.saveSession(AlbumImagesActivity.this);
+                            images = new ImageAdapter(AlbumImagesActivity.this,(ArrayList)uris);
+                            photoListView.setAdapter(images);
+                        }
+                    }
+                }
+        );
     }
     public void showSlideshowDialog(){
         if(size==0){
@@ -99,10 +146,6 @@ public class AlbumImagesActivity extends AppCompatActivity{
         num =0;
         uri = photos.get(num).getUri();
         imageView.setImageURI(uri);
-
-
-
-
 
         next_button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
