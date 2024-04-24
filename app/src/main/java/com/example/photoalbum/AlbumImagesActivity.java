@@ -56,6 +56,9 @@ public class AlbumImagesActivity extends AppCompatActivity{
         Bundle bundle = getIntent().getExtras();
         albumName = bundle.getString(MainActivity.ALBUM_NAME);
         mainUser = MainUser.loadSession(this);
+        addToAlbum = registerForActivityResult(new ActivityResultContracts.OpenMultipleDocuments(),
+                new AddToAlbum());
+
         Optional<Album> temp = mainUser.getAlbums()
                 .stream()
                 .filter(x -> x.getName().equals(albumName))
@@ -99,37 +102,6 @@ public class AlbumImagesActivity extends AppCompatActivity{
                 addToAlbum.launch(new String[] {"image/*"});
             }
         });
-
-
-        // Anonymous class handles File Choosing
-        addToAlbum = registerForActivityResult(
-                new ActivityResultContracts.OpenMultipleDocuments(),
-                new ActivityResultCallback<List<Uri>>() {
-                    @Override
-                    public void onActivityResult(List<Uri> newUris) {
-                        // Create an album
-                        if (newUris != null) {
-                            for (Uri uri : newUris) {
-                                if(uriStrings.contains(uri.toString())){
-                                    continue;
-                                }
-                                // Allows for secure access
-                                final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-                                if(getIntent() != null && getIntent().getFlags() != 0){
-                                    getContentResolver().takePersistableUriPermission(uri, takeFlags);
-                                }
-                                a.addPhoto(new Photo(uri));
-                                uris.add(uri);
-                                uriStrings.add(uri.toString());
-                            }
-                            mainUser.saveSession(AlbumImagesActivity.this);
-                            images = new ImageAdapter(AlbumImagesActivity.this,(ArrayList)uris);
-                            photoListView.setAdapter(images);
-                        }
-                    }
-                }
-        );
     }
     private void PhotoViewActivity(int pos) {
         Bundle bundle = new Bundle();
@@ -187,5 +159,26 @@ public class AlbumImagesActivity extends AppCompatActivity{
         });
 
         dialog.show();
+    }
+    public class AddToAlbum implements ActivityResultCallback<List<Uri>> {
+        @Override
+        public void onActivityResult(List<Uri> newUris) {
+            if (newUris != null) {
+                for (Uri uri : newUris) {
+                    if (uriStrings.contains(uri.toString())) {
+                        continue;
+                    }
+                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                    if (getIntent() != null && (getIntent().getFlags() & takeFlags) == takeFlags) {
+                        getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                    }                    a.addPhoto(new Photo(uri));
+                    uris.add(uri);
+                    uriStrings.add(uri.toString());
+                }
+                images = new ImageAdapter(AlbumImagesActivity.this, uris);
+                photoListView.setAdapter(images);
+                mainUser.saveSession(AlbumImagesActivity.this);
+            }
+        }
     }
 }

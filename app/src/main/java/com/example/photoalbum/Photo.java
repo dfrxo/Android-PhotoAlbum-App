@@ -3,6 +3,8 @@ package com.example.photoalbum;
 
 import java.io.Serializable;
 import android.net.Uri;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 /**
  * Contains photo data. Stores info about a photo: name, path, caption, data, and tags;
@@ -14,7 +16,8 @@ public class Photo implements Serializable{
 
     private String name;
     private transient Uri uri;
-    private HashSet<Tag> tags;
+    private Tag location;
+    private Tag person;
     private String uriString;
 
     /**
@@ -26,8 +29,16 @@ public class Photo implements Serializable{
     public Photo(Uri uri) {
         this.uri = uri;
         this.uriString = uri.toString();
-        tags = new HashSet<>();
+
+        HashSet<String> ppp = new HashSet<>();
+        ppp.add("none");
+        person = new Tag("person",ppp);
+        location = new Tag("location","None");
     }
+    public void changeLocation(String s){ location.changeValue(s); }
+    public void removePerson(String s){ person.getValues().remove(s); }
+    public void addPerson(String s){ person.getValues().add(s); }
+
     /**
      * Returns the file path of the photo.
      *
@@ -41,25 +52,14 @@ public class Photo implements Serializable{
      *
      * @return A HashSet of Tag objects.
      */
-    public HashSet<Tag> getTags() {
-        return tags;
+    public HashSet<String> getPerson() {
+        return person.getValues();
     }
-    /**
-     * Adds a tag to the photo.
-     *
-     * @param t The tag to be added.
-     */
-    public void addTag(Tag t) {
-        tags.add(t);
+    public String getLocation() {
+        return location.getValue();
     }
-    /**
-     * Removes a tag from the photo.
-     *
-     * @param t The tag to be removed.
-     */
-    public void removeTag(Tag t) {
-        tags.remove(t);
-    }
+
+
 
     public void restoreUri() {
         this.uri = Uri.parse(uriString);

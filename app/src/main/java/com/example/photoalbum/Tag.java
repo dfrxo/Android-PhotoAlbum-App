@@ -2,6 +2,8 @@ package com.example.photoalbum;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  * Contains data for the tag. Tag is a key value pair attached to a photo.
@@ -15,7 +17,7 @@ public class Tag implements Serializable{
     private static final long serialVersionUID = 1L;
     private String key;
     private String value;
-    private ArrayList<String> values;
+    private HashSet<String> values;
     /**
      * Constructs a Tag with the specified key and value.
      *
@@ -26,13 +28,17 @@ public class Tag implements Serializable{
         this.key=key.trim().toLowerCase();
         this.value=value.trim().toLowerCase();
     }
-    public Tag(String key, ArrayList<String> values){
+    public Tag(String key, HashSet<String> values){
         this.key=key.trim().toLowerCase();
         this.values=values;
     }
-    public ArrayList<String> getValues(){
+    public void changeValue(String value){
+        this.value=value;
+    }
+    public HashSet<String> getValues(){
         return values;
     }
+    public void addToValues(String s){ values.add(s); }
     /**
      * Returns the key of the tag.
      *
@@ -59,6 +65,12 @@ public class Tag implements Serializable{
      */
     @Override
     public String toString() {
-        return key+":"+value;
+        if(value!=null){
+            return key+":"+value;
+
+        }
+        else {
+            return key+":"+values;
+        }
     }
 }

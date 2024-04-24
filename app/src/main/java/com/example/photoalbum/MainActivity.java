@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         albums = mainUser.getAlbums();
         storedAlbumNames = mainUser.getStoredAlbumNames();
 
+        createAlbum = registerForActivityResult(new ActivityResultContracts.OpenMultipleDocuments(),
+                new AlbumCreation());
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -67,16 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
- //       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         Button show_add_album_dialog = findViewById(R.id.add_album_button);
         Button show_delete_album_dialog = findViewById(R.id.delete_album_button);
         Button show_rename_album_dialog = findViewById(R.id.rename_album_button);
 
         albumsListView = findViewById(R.id.album_list_view);
-
         //populating albumListView
         populateListView();
 
@@ -109,39 +107,6 @@ public class MainActivity extends AppCompatActivity {
                 showAddDialog();
             }
         });
-
-        // Anonymous class handles File Choosing
-        createAlbum = registerForActivityResult(
-                new ActivityResultContracts.OpenMultipleDocuments(),
-                new ActivityResultCallback<List<Uri>>() {
-                    @Override
-                    public void onActivityResult(List<Uri> uris) {
-                        // Create an album
-                        photoList.clear();
-                        if (uris != null) {
-                            for (Uri uri : uris) {
-                                // Allows for secure access
-                                final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-                                if(getIntent() != null && getIntent().getFlags() != 0){
-                                    getContentResolver().takePersistableUriPermission(uri, takeFlags);
-                                }
-                                photoList.add(new Photo(uri));
-                            }
-                            Album a = new Album(albumName,photoList);
-                            albums.add(a);
-                            storedAlbumNames.add(albumName);
-                            albumName = "";
-
-                            mainUser.setAlbums(albums);
-                            mainUser.setStoredAlbumNames(storedAlbumNames);
-                            mainUser.saveSession(MainActivity.this);
-
-                            populateListView();
-                        }
-                    }
-                }
-        );
     }
     private void AlbumImagesActivity(int pos) {
         Bundle bundle = new Bundle();
@@ -341,6 +306,34 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, names);
         albumsListView.setAdapter(adapter);
+    }
+    public class AlbumCreation implements ActivityResultCallback<List<Uri>> {
+        @Override
+        public void onActivityResult(List<Uri> uris) {
+            // Create an album
+            photoList.clear();
+            if (uris != null) {
+                for (Uri uri : uris) {
+                    // Allows for secure access
+                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                    if (getIntent() != null && getIntent().getFlags() != 0) {
+                        getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                    }
+                    photoList.add(new Photo(uri));
+                }
+                Album a = new Album(albumName, photoList);
+                albums.add(a);
+                storedAlbumNames.add(albumName);
+                albumName = "";
+
+                mainUser.setAlbums(albums);
+                mainUser.setStoredAlbumNames(storedAlbumNames);
+                mainUser.saveSession(MainActivity.this);
+
+                populateListView();
+            }
+        }
     }
 
 }
