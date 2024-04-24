@@ -3,6 +3,7 @@ package com.example.photoalbum;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -39,6 +40,10 @@ public class Tag implements Serializable{
         return values;
     }
     public void addToValues(String s){ values.add(s); }
+    public void addAllToValues(List<String> lt){
+        values.addAll(lt);
+    }
+
     /**
      * Returns the key of the tag.
      *

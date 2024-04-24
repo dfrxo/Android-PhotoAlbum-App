@@ -66,6 +66,11 @@ public class PhotoViewActivity extends AppCompatActivity {
                 showMoveDialog();
             }
         });
+        apply_changes_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                showEditDialog();
+            }
+        });
     }
     @Override
     public boolean onSupportNavigateUp() {
@@ -75,11 +80,51 @@ public class PhotoViewActivity extends AppCompatActivity {
         finish();
         return true;
     }
+    public void showEditDialog(){
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.edit_details_page);
+
+        ImageView image_preview = dialog.findViewById(R.id.image_preview);
+        Button delete_image_button = dialog.findViewById(R.id.delete_image_button);
+        TextView person_tag_input = dialog.findViewById(R.id.person_tag_input);
+        TextView location_tag_input = dialog.findViewById(R.id.location_tag_input);
+        Button apply_changes_button = dialog.findViewById(R.id.apply_changes_button);
+
+        Photo curr = mainUser.getPhoto();
+        image_preview.setImageURI(curr.getUri());
+
+
+
+        delete_image_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+
+                Album curr=null;
+                for(Album a: alb){
+                    if(albumName.equals(a.getName())){
+                        curr = a;
+                        break;
+                    }
+                }
+                curr.removePhoto(curr.getPhotos().indexOf(photo));
+
+                mainUser.saveSession(PhotoViewActivity.this);
+                onSupportNavigateUp();
+                dialog.dismiss();
+            }
+        });
+        apply_changes_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                showMoveDialog();
+            }
+        });
+
+        dialog.show();
+    }
     public void showMoveDialog(){
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.move_image_to_album);
         albums_list = dialog.findViewById(R.id.albums_list);
-
         populateListView();
 
         albums_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -97,12 +142,7 @@ public class PhotoViewActivity extends AppCompatActivity {
                 next.addPhoto(photo);
                 prev.removePhoto(prev.getPhotos().indexOf(photo));
                 mainUser.saveSession(PhotoViewActivity.this);
-
-
                 onSupportNavigateUp();
-
-
-
                 dialog.dismiss();
             }
         });
@@ -112,7 +152,7 @@ public class PhotoViewActivity extends AppCompatActivity {
     public void populateListView(){
         // String[] names = {"David", "Tanesha"};
         String[] names = alb.stream()
-                .map(a -> a.getName())
+                .map(Album::getName)
                 .toArray(String[]::new);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, names);
