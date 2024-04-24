@@ -78,7 +78,7 @@ public class PhotoViewActivity extends AppCompatActivity {
     public void showMoveDialog(){
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.move_image_to_album);
-        albums_list = findViewById(R.id.albums_list);
+        albums_list = dialog.findViewById(R.id.albums_list);
 
         populateListView();
 
@@ -97,6 +97,12 @@ public class PhotoViewActivity extends AppCompatActivity {
                 next.addPhoto(photo);
                 prev.removePhoto(prev.getPhotos().indexOf(photo));
                 mainUser.saveSession(PhotoViewActivity.this);
+
+
+                onSupportNavigateUp();
+
+
+
                 dialog.dismiss();
             }
         });

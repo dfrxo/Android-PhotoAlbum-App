@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -39,6 +40,7 @@ public class AlbumImagesActivity extends AppCompatActivity{
     private Uri uri;
     private ActivityResultLauncher<String[]> addToAlbum;
     private ImageAdapter images;
+    private TextView album_name_display;
 
     public static final String PHOTO_NAME = "photo_name";
     public static final String ALBUM_NAME = "album_name";
@@ -76,6 +78,8 @@ public class AlbumImagesActivity extends AppCompatActivity{
 
         add_image_button = findViewById(R.id.add_image_button);
         slideshow_button = findViewById(R.id.slideshow_button);
+        album_name_display = findViewById(R.id.album_name_display);
+        album_name_display.setText(albumName);
 
         // ListView handler
         photoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
