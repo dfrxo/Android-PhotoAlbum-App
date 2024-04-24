@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         Button show_add_album_dialog = findViewById(R.id.add_album_button);
         Button show_delete_album_dialog = findViewById(R.id.delete_album_button);
         Button show_rename_album_dialog = findViewById(R.id.rename_album_button);
+        Button search_image_button = findViewById(R.id.search_image_button);
 
         albumsListView = findViewById(R.id.album_list_view);
         //populating albumListView
@@ -91,7 +92,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        search_image_button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
 
+                SearchActivity();
+            }
+        });
         show_delete_album_dialog.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 showDeleteDialog();
@@ -107,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
                 showAddDialog();
             }
         });
+    }
+    private void SearchActivity(){
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
     }
     private void AlbumImagesActivity(int pos) {
         Bundle bundle = new Bundle();

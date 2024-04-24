@@ -16,7 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.stream.Stream;
 
 public class PhotoViewActivity extends AppCompatActivity {
     private String uriString;
@@ -40,10 +42,12 @@ public class PhotoViewActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         image_preview = findViewById(R.id.image_preview);
         person_tag = findViewById(R.id.person_tag);
-
-
-
         location_tag = findViewById(R.id.location_tag);
+
+        person_tag.setText("");
+        location_tag.setText("");
+
+
         move_button = findViewById(R.id.move_button);
         apply_changes_button = findViewById(R.id.apply_changes_button);
 
@@ -90,6 +94,9 @@ public class PhotoViewActivity extends AppCompatActivity {
         TextView location_tag_input = dialog.findViewById(R.id.location_tag_input);
         Button apply_changes_button = dialog.findViewById(R.id.apply_changes_button);
 
+        person_tag_input.setText("");
+        location_tag_input.setText("");
+
         Photo curr = mainUser.getPhoto();
         image_preview.setImageURI(curr.getUri());
 
@@ -97,8 +104,6 @@ public class PhotoViewActivity extends AppCompatActivity {
 
         delete_image_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
-
                 Album curr=null;
                 for(Album a: alb){
                     if(albumName.equals(a.getName())){
@@ -115,8 +120,23 @@ public class PhotoViewActivity extends AppCompatActivity {
         });
         apply_changes_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                showMoveDialog();
+                String person = person_tag_input.getText().toString();
+                String location = location_tag_input.getText().toString();
+
+                String[] persons = person.split(",");
+                persons = Stream.of(persons)
+                        .map(str -> str.trim())
+                        .toArray(String[]::new);
+                if(!location.isEmpty()){
+                    photo.changeLocation(location);
+                }
+                if(persons.length!=0) {
+                    photo.addPerson(persons);
+                }
+                mainUser.saveSession(PhotoViewActivity.this);
+                dialog.dismiss();
             }
+
         });
 
         dialog.show();

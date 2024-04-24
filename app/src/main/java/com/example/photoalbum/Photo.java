@@ -33,11 +33,18 @@ public class Photo implements Serializable{
         HashSet<String> ppp = new HashSet<>();
         ppp.add("none");
         person = new Tag("person",ppp);
-        location = new Tag("location","None");
+        location = new Tag("location","none");
     }
-    public void changeLocation(String s){ location.changeValue(s); }
-    public void removePerson(String s){ person.getValues().remove(s); }
-    public void addPerson(String s){ person.getValues().add(s); }
+    public void removeLocation(){
+
+    }
+    public void changeLocation(String s){
+        location.changeValue(s);
+        //location.getValues().remove("none");
+    }
+    public void removePersons(String s){ person.getValues().clear();  person.getValues().add("none");}
+
+    public void addPerson(String[] s){ person.addAllToValues(s); person.getValues().remove("none");}
 
     /**
      * Returns the file path of the photo.

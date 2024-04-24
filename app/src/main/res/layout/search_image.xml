@@ -45,7 +45,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="255dp"
         android:layout_marginBottom="496dp"
-        android:text="Enter person tag to search by"
+        android:text="Enter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,6 +110,7 @@
         android:layout_marginTop="203dp"
         android:layout_marginEnd="196dp"
         android:layout_marginBottom="399dp"
+        android:checked="true"
         android:text="conjunction"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,8 +119,9 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <ListView
-        android:layout_width="380dp"
-        android:layout_height="394dp"
+        android:id="@+id/SearchListView"
+        android:layout_width="398dp"
+        android:layout_height="273dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="245dp"
         android:layout_marginEnd="1dp"
