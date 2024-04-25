@@ -37,6 +37,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
+=======
     <TextView
         android:id="@+id/textView10"
         android:layout_width="128dp"
@@ -51,6 +53,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+>>>>>>> 08a28ac538080c37730e571b95f081b410f517d6
     <EditText
         android:id="@+id/person_search_input"
         android:layout_width="250dp"
@@ -66,22 +69,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="125dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="258dp"
-        android:layout_marginBottom="440dp"
-        android:text="Enter location tag to search by"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/location_search_input"
@@ -103,6 +90,16 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <RadioButton
+<<<<<<< HEAD
+        android:id="@+id/and_radio"
+        android:layout_width="85dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="296dp"
+        android:layout_marginBottom="395dp"
+        android:text="@string/AND"
+=======
         android:id="@+id/conjunction_radio"
         android:layout_width="172dp"
         android:layout_height="40dp"
@@ -112,16 +109,23 @@
         android:layout_marginBottom="399dp"
         android:checked="true"
         android:text="conjunction"
+>>>>>>> 08a28ac538080c37730e571b95f081b410f517d6
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="HardcodedText,TouchTargetSizeCheck" />
 
     <ListView
+<<<<<<< HEAD
+        android:id="@+id/filter_list"
+        android:layout_width="380dp"
+        android:layout_height="394dp"
+=======
         android:id="@+id/SearchListView"
         android:layout_width="398dp"
         android:layout_height="273dp"
+>>>>>>> 08a28ac538080c37730e571b95f081b410f517d6
         android:layout_marginStart="3dp"
         android:layout_marginTop="245dp"
         android:layout_marginEnd="1dp"
@@ -133,7 +137,7 @@
 
     <Button
         android:id="@+id/apply_search_button"
-        android:layout_width="168dp"
+        android:layout_width="160dp"
         android:layout_height="48dp"
         android:layout_marginStart="200dp"
         android:layout_marginTop="197dp"
@@ -145,4 +149,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/search_spinner1"
+        android:layout_width="125dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="99dp"
+        android:layout_marginEnd="258dp"
+        android:layout_marginBottom="497dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/search_spinner2"
+        android:layout_width="125dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginBottom="446dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <RadioButton
+        android:id="@+id/or_radio"
+        android:layout_width="85dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="188dp"
+        android:layout_marginBottom="395dp"
+        android:text="@string/OR"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
