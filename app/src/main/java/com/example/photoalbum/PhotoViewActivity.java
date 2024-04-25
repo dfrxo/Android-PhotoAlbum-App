@@ -32,6 +32,7 @@ public class PhotoViewActivity extends AppCompatActivity {
     private String albumName;
     private ArrayList<Album> alb;
     private ListView albums_list;
+    private String persons;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +57,12 @@ public class PhotoViewActivity extends AppCompatActivity {
         alb = mainUser.getAlbums();
 
         HashSet<String> personSet = photo.getPerson();
-        String persons = String.join(", ", personSet);
+        persons = String.join(", ", personSet);
         person_tag.setText(persons);
         location_tag.setText(photo.getLocation());
 
         Bundle bundle = getIntent().getExtras();
         albumName = bundle.getString(AlbumImagesActivity.ALBUM_NAME);
-    //    uriString = bundle.getString(AlbumImagesActivity.PHOTO_NAME);
         image_preview.setImageURI(photo.getUri());
 
         move_button.setOnClickListener(new View.OnClickListener() {
@@ -123,17 +123,21 @@ public class PhotoViewActivity extends AppCompatActivity {
                 String person = person_tag_input.getText().toString();
                 String location = location_tag_input.getText().toString();
 
-                String[] persons = person.split(",");
-                persons = Stream.of(persons)
+                String[] newPeople = person.split(",");
+                newPeople = Stream.of(newPeople)
                         .map(str -> str.trim())
                         .toArray(String[]::new);
                 if(!location.isEmpty()){
                     photo.changeLocation(location);
                 }
-                if(persons.length!=0) {
-                    photo.addPerson(persons);
+                if(newPeople.length!=0) {
+                    photo.addPerson(newPeople);
                 }
+
                 mainUser.saveSession(PhotoViewActivity.this);
+                persons = String.join(", ", photo.getPerson());
+                person_tag.setText(persons);
+                location_tag.setText(photo.getLocation());
                 dialog.dismiss();
             }
 
