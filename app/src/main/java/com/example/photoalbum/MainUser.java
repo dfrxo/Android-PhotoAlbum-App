@@ -14,11 +14,11 @@ import java.util.ArrayList;
 
 public class MainUser implements Serializable {
     private static final long serialVersionUID = 1L;
-    private static final String storeDir = "";
     private static final String storeFile = "userFile.dat";
 
     private ArrayList<Album> albums;
     private ArrayList<String> storedAlbumNames;
+    private ArrayList<Photo> allPhotos;
 
     private Photo currPhoto;
 
@@ -40,40 +40,24 @@ public class MainUser implements Serializable {
     }
     public void saveSession(Context context) {
         try {
-
-            //FileOutputStream fileOut = new FileOutputStream(storeDir + "/" + storeFile);
             FileOutputStream fileOut = context.openFileOutput(storeFile, Context.MODE_PRIVATE);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this);
             out.close();
             fileOut.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public static MainUser loadSession(Context context) {
         MainUser mainUser = null;
-//        try {
-//            File file = new File(storeDir + "/" + storeFile);
-//            if (file.exists()) {
-//                FileInputStream fileIn = new FileInputStream(file);
-//                ObjectInputStream in = new ObjectInputStream(fileIn);
-//                mainUser = (MainUser) in.readObject();
-//                in.close();
-//                fileIn.close();
-//            } else {
-//                mainUser = new MainUser();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         try {
             FileInputStream fileIn = context.openFileInput(storeFile);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             mainUser = (MainUser) in.readObject();
             in.close();
             fileIn.close();
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             mainUser = new MainUser();
         }
@@ -85,4 +69,19 @@ public class MainUser implements Serializable {
         albums.stream().flatMap(a -> a.getPhotos().stream()).
                 forEach(Photo::restoreUri);
     }
+    public void addPhoto(Photo p){
+        allPhotos.add(p);
+    }
+    public void addPhotos(ArrayList<Photo> ps){
+        allPhotos.addAll(ps);
+    }
+    public ArrayList<Photo> search(Tag a){
+
+        return null;
+    }
+    public ArrayList<Photo> search(Tag a,Tag b){
+
+        return null;
+    }
+
 }

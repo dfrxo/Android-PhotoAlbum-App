@@ -335,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
                 Album a = new Album(albumName, photoList);
                 albums.add(a);
                 storedAlbumNames.add(albumName);
+                mainUser.addPhotos(photoList);
                 albumName = "";
 
                 mainUser.setAlbums(albums);

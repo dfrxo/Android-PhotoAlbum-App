@@ -175,7 +175,10 @@ public class AlbumImagesActivity extends AppCompatActivity{
                     final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
                     if (getIntent() != null && (getIntent().getFlags() & takeFlags) == takeFlags) {
                         getContentResolver().takePersistableUriPermission(uri, takeFlags);
-                    }                    a.addPhoto(new Photo(uri));
+                    }
+
+                    a.addPhoto(new Photo(uri));
+                    mainUser.addPhoto(new Photo(uri));
                     uris.add(uri);
                     uriStrings.add(uri.toString());
                 }
