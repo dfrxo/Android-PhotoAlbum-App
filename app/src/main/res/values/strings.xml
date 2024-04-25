@@ -19,4 +19,6 @@
     <string name="album_name">Album Name</string>
     <string name="chose_file">Choose Images</string>
     <string name="empty_album">Create Empty</string>
+    <string name="AND">AND</string>
+    <string name="OR">OR</string>
 </resources>
