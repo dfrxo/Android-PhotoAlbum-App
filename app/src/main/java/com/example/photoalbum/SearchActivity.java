@@ -41,11 +41,11 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SearchListView = findViewById(R.id.SearchListView);
+        //SearchListView = findViewById(R.id.SearchListView);
         person_search_input = findViewById(R.id.person_search_input);
         location_search_input = findViewById(R.id.location_search_input);
         apply_search_button = findViewById(R.id.apply_search_button);
-        conjunction_radio = findViewById(R.id.conjunction_radio);
+        //conjunction_radio = findViewById(R.id.conjunction_radio);
 
         mainUser = MainUser.loadSession(SearchActivity.this);
         foundPhotos = new ArrayList<>();
@@ -67,8 +67,7 @@ public class SearchActivity extends AppCompatActivity {
             return;
         }
         ArrayList<Uri> uris = new ArrayList<>();
-        foundPhotos.stream()
-                .forEach(p -> uris.add(p.getUri()));
+        foundPhotos.forEach(p -> uris.add(p.getUri()));
         images = new ImageAdapter(this, uris);
         SearchListView.setAdapter(images);
     }

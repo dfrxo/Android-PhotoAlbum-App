@@ -25,6 +25,7 @@ public class MainUser implements Serializable {
     private MainUser(){
         albums = new ArrayList<>();
         storedAlbumNames = new ArrayList<>();
+        allPhotos = new ArrayList<>();
     }
 
     public ArrayList<Album> getAlbums(){ return albums; }
@@ -70,10 +71,10 @@ public class MainUser implements Serializable {
                 forEach(Photo::restoreUri);
     }
     public void addPhoto(Photo p){
-        allPhotos.add(p);
+          //allPhotos.add(p);
     }
     public void addPhotos(ArrayList<Photo> ps){
-        allPhotos.addAll(ps);
+        //allPhotos.addAll(ps);
     }
     public ArrayList<Photo> search(Tag a){
 
