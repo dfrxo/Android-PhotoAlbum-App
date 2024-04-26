@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -93,6 +94,8 @@ public class PhotoViewActivity extends AppCompatActivity {
         TextView person_tag_input = dialog.findViewById(R.id.person_tag_input);
         TextView location_tag_input = dialog.findViewById(R.id.location_tag_input);
         Button apply_changes_button = dialog.findViewById(R.id.apply_changes_button);
+        Button delete_person = dialog.findViewById(R.id.delete_person);
+        Button delete_location = dialog.findViewById(R.id.delete_location);
 
         person_tag_input.setText("");
         location_tag_input.setText("");
@@ -100,8 +103,32 @@ public class PhotoViewActivity extends AppCompatActivity {
         Photo curr = mainUser.getPhoto();
         image_preview.setImageURI(curr.getUri());
 
+        delete_person.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                photo.removePersons();
+                mainUser.saveSession(PhotoViewActivity.this);
+                CharSequence text = "All persons deleted, if any.";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(PhotoViewActivity.this, text, duration);
+                toast.show();
+                persons = "none";
+                person_tag.setText(persons);
+                dialog.dismiss();
+            }
+        });
+        delete_location.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                photo.removeLocation();
+                mainUser.saveSession(PhotoViewActivity.this);
+                CharSequence text = "Location, if any, deleted.";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(PhotoViewActivity.this, text, duration);
+                toast.show();
+                location_tag.setText(photo.getLocation());
+                dialog.dismiss();
 
-
+            }
+        });
         delete_image_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Album curr=null;

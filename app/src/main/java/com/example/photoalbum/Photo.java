@@ -36,13 +36,13 @@ public class Photo implements Serializable{
         location = new Tag("location","none");
     }
     public void removeLocation(){
-
+        location.changeValue("none");
     }
     public void changeLocation(String s){
         location.changeValue(s);
         //location.getValues().remove("none");
     }
-    public void removePersons(String s){ person.getValues().clear();  person.getValues().add("none");}
+    public void removePersons(){ person.getValues().clear();  person.getValues().add("none");}
 
     public void addPerson(String[] s){ person.addAllToValues(s); person.getValues().remove("none");}
 
