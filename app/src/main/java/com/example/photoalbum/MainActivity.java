@@ -330,12 +330,12 @@ public class MainActivity extends AppCompatActivity {
                     if (getIntent() != null && getIntent().getFlags() != 0) {
                         getContentResolver().takePersistableUriPermission(uri, takeFlags);
                     }
-                    photoList.add(new Photo(uri));
+                    Photo p = new Photo(uri);
+                    photoList.add(p);
                 }
                 Album a = new Album(albumName, photoList);
                 albums.add(a);
                 storedAlbumNames.add(albumName);
-                mainUser.addPhotos(photoList);
                 albumName = "";
 
                 mainUser.setAlbums(albums);

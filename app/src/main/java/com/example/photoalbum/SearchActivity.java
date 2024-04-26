@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -30,11 +32,10 @@ public class SearchActivity extends AppCompatActivity {
     private RadioButton conjunction_radio;
     private Spinner search_spinner1;
     private Spinner search_spinner2;
-
+    private ToggleButton or_radio;
     private ImageAdapter images;
 
     private MainUser mainUser;
-    private ArrayList<Photo> foundPhotos;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class SearchActivity extends AppCompatActivity {
         apply_search_button = findViewById(R.id.apply_search_button);
         search_spinner1 = findViewById(R.id.search_spinner1);
         search_spinner2 = findViewById(R.id.search_spinner2);
+        or_radio = findViewById(R.id.or_radio);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
@@ -69,28 +71,47 @@ public class SearchActivity extends AppCompatActivity {
         search_spinner2.setAdapter(adapter2);
 
         mainUser = MainUser.loadSession(SearchActivity.this);
-        foundPhotos = new ArrayList<>();
-
-
-
-
-
 
         // Search
         apply_search_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                populateListView();
+                ArrayList<Photo> foundPhotos = new ArrayList<>();
+                populateListView(foundPhotos);
+
+                String firstItem = search_spinner1.getSelectedItem().toString();
+                String secondItem = search_spinner2.getSelectedItem().toString();
+                String firstSearch = person_search_input.getText().toString();
+                String secondSearch=null;
+                String operation=null;
+                if(!secondItem.isEmpty()){
+                    secondSearch = location_search_input.getText().toString();
+                    operation = or_radio.getText().toString();
+                }
+                if(operation!=null){
+                    foundPhotos = mainUser.search(firstItem, firstSearch, secondItem, secondSearch, operation);
+                }
+                else{
+                    foundPhotos = mainUser.search(firstItem, firstSearch);
+                }
+                if(foundPhotos.size()==0){
+                    CharSequence text = "No photos found.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(SearchActivity.this, text, duration);
+                    toast.show();
+                }
+                populateListView(foundPhotos);
             }
         });
     }
-    private void populateListView(){
-        if(foundPhotos.isEmpty()){
-            return;
-        }
+    private void populateListView(ArrayList<Photo> foundPhotos) {
+//        if (foundPhotos.isEmpty()) {
+//            return;
+//        }
         ArrayList<Uri> uris = new ArrayList<>();
         foundPhotos.forEach(p -> uris.add(p.getUri()));
         images = new ImageAdapter(this, uris);
         filter_list.setAdapter(images);
-    }
 
+
+    }
 }

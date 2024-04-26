@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class MainUser implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,14 +19,12 @@ public class MainUser implements Serializable {
 
     private ArrayList<Album> albums;
     private ArrayList<String> storedAlbumNames;
-    private ArrayList<Photo> allPhotos;
 
     private Photo currPhoto;
 
     private MainUser(){
         albums = new ArrayList<>();
         storedAlbumNames = new ArrayList<>();
-        allPhotos = new ArrayList<>();
     }
 
     public ArrayList<Album> getAlbums(){ return albums; }
@@ -70,17 +69,27 @@ public class MainUser implements Serializable {
         albums.stream().flatMap(a -> a.getPhotos().stream()).
                 forEach(Photo::restoreUri);
     }
-    public void addPhoto(Photo p){
-          //allPhotos.add(p);
-    }
-    public void addPhotos(ArrayList<Photo> ps){
-        //allPhotos.addAll(ps);
-    }
-    public ArrayList<Photo> search(Tag a){
+    public ArrayList<Photo> search(String key, String val){
+        ArrayList<Photo> foundPhotos=null;
+        if(key.equals("Person")){
+            foundPhotos = albums.stream()
+                .flatMap(a -> a.getPhotos().stream())
+                    .filter(c ->
+                            c.getPerson().stream()
+                                    .anyMatch(d -> d.startsWith(val)))
+                    .collect(Collectors.toCollection(ArrayList::new));
 
-        return null;
+
+
+        }
+        else if(key.equals("Location")) {
+            foundPhotos = albums.stream().flatMap(a -> a.getPhotos().stream())
+                    .filter(x -> x.getLocation().equals(val))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+        return foundPhotos;
     }
-    public ArrayList<Photo> search(Tag a,Tag b){
+    public ArrayList<Photo> search(String key1,String val1, String key2, String val2,String operation){
 
         return null;
     }

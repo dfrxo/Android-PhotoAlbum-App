@@ -177,8 +177,9 @@ public class AlbumImagesActivity extends AppCompatActivity{
                         getContentResolver().takePersistableUriPermission(uri, takeFlags);
                     }
 
-                    a.addPhoto(new Photo(uri));
-                    mainUser.addPhoto(new Photo(uri));
+                    Photo p = new Photo(uri);
+
+                    a.addPhoto(p);
                     uris.add(uri);
                     uriStrings.add(uri.toString());
                 }

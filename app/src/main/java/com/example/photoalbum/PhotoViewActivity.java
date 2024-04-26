@@ -126,7 +126,6 @@ public class PhotoViewActivity extends AppCompatActivity {
                 toast.show();
                 location_tag.setText(photo.getLocation());
                 dialog.dismiss();
-
             }
         });
         delete_image_button.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +138,6 @@ public class PhotoViewActivity extends AppCompatActivity {
                     }
                 }
                 curr.removePhoto(curr.getPhotos().indexOf(photo));
-
                 mainUser.saveSession(PhotoViewActivity.this);
                 onSupportNavigateUp();
                 dialog.dismiss();
@@ -171,6 +169,11 @@ public class PhotoViewActivity extends AppCompatActivity {
         });
 
         dialog.show();
+        CharSequence text = "Set multiple people by: \"person1,person2,etc\"";
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(PhotoViewActivity.this, text, duration);
+        toast.show();
     }
     public void showMoveDialog(){
         Dialog dialog = new Dialog(this);

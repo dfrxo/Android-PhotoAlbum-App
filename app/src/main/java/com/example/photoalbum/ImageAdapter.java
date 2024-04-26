@@ -18,6 +18,9 @@ public class ImageAdapter extends BaseAdapter {
         this.context = context;
         this.imageUris = imageUris;
     }
+    public void clear(){
+        imageUris.clear();
+    }
     @Override
     public int getCount() {
         return imageUris.size();
