@@ -72,18 +72,27 @@ public class MainUser implements Serializable {
     public ArrayList<Photo> search(String key, String val){
         ArrayList<Photo> foundPhotos=new ArrayList<>();
         if(key.equals("Person")){
-            foundPhotos = albums.stream()
-                .flatMap(a -> a.getPhotos().stream())
-                    .filter(c ->
-                            c.getPerson().stream()
-                                    .anyMatch(d -> d.startsWith(val)))
+            foundPhotos = albums.stream()  //Stream<Albums>
+                    .flatMap(i-> i.getPhotos().stream())  // Stream<Photo>
+                    .filter(p-> p.getPerson().stream()
+                            .anyMatch(x-> x.startsWith(val)))
                     .collect(Collectors.toCollection(ArrayList::new));
 
         }
         else if(key.equals("Location")) {
-            foundPhotos = albums.stream().flatMap(a -> a.getPhotos().stream())
-                    .filter(x -> x.getLocation().equals(val))
+
+            // ArrayList<Albums> albums ;
+            // each album contains an ArrayList of Photos.
+
+            // String value
+
+            albums.stream() // Stream<Album>
+                    .flatMap(i -> i.getPhotos().stream())      // Stream<Photo>
+                    .filter(p->p.getLocation().startsWith(val))  // Stream<Photo>
                     .collect(Collectors.toCollection(ArrayList::new));
+
+
+
         }
         return foundPhotos;
     }
