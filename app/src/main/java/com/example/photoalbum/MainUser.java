@@ -2,14 +2,11 @@ package com.example.photoalbum;
 
 import android.content.Context;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -86,7 +83,7 @@ public class MainUser implements Serializable {
 
             // String value
 
-            albums.stream() // Stream<Album>
+            foundPhotos = albums.stream() // Stream<Album>
                     .flatMap(i -> i.getPhotos().stream())      // Stream<Photo>
                     .filter(p->p.getLocation().startsWith(val))  // Stream<Photo>
                     .collect(Collectors.toCollection(ArrayList::new));
