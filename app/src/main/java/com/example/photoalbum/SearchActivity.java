@@ -80,10 +80,10 @@ public class SearchActivity extends AppCompatActivity {
 
                 String firstItem = search_spinner1.getSelectedItem().toString();
                 String secondItem = search_spinner2.getSelectedItem().toString();
-                String firstSearch = person_search_input.getText().toString();
+                String firstSearch = person_search_input.getText().toString().toLowerCase();
                 String secondSearch=null;
                 String operation=null;
-                secondSearch = location_search_input.getText().toString();
+                secondSearch = location_search_input.getText().toString().toLowerCase();
 
                 if(!secondItem.isEmpty()){
                     operation = or_radio.getText().toString();

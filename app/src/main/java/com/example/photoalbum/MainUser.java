@@ -72,7 +72,7 @@ public class MainUser implements Serializable {
             foundPhotos = albums.stream()  //Stream<Albums>
                     .flatMap(i-> i.getPhotos().stream())  // Stream<Photo>
                     .filter(p-> p.getPerson().stream()
-                            .anyMatch(x-> x.startsWith(val)))
+                            .anyMatch(x-> x.toLowerCase().startsWith(val)))
                     .collect(Collectors.toCollection(ArrayList::new));
 
         }
@@ -85,7 +85,7 @@ public class MainUser implements Serializable {
 
             foundPhotos = albums.stream() // Stream<Album>
                     .flatMap(i -> i.getPhotos().stream())      // Stream<Photo>
-                    .filter(p->p.getLocation().startsWith(val))  // Stream<Photo>
+                    .filter(p->p.getLocation().toLowerCase().startsWith(val))  // Stream<Photo>
                     .collect(Collectors.toCollection(ArrayList::new));
 
 
@@ -98,14 +98,16 @@ public class MainUser implements Serializable {
         if(key.equals("Person")){
             foundPhotos = temp.stream() // Stream<Photos>
                     .filter(xx -> xx.getPerson().stream()  // Filtering PHOTOS.
-                            .anyMatch(tt -> tt.startsWith(val)))
+                            .anyMatch(tt -> tt.toLowerCase().startsWith(val)))
                     .collect(Collectors.toCollection(ArrayList::new));
 
         }
         else if(key.equals("Location")) {
             foundPhotos = temp.stream() // Stream<Photo>
-                    .filter(xxx -> xxx.getLocation().startsWith(val)) // Filtering PHOTOS
+                    .filter(xxx -> xxx.getLocation().toLowerCase().startsWith(val)) // Filtering PHOTOS
                     .collect(Collectors.toCollection(ArrayList::new));
+
+
         }
         return foundPhotos;
     }
