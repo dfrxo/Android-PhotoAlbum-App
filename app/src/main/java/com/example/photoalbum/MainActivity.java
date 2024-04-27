@@ -55,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
         albums = mainUser.getAlbums();
         storedAlbumNames = mainUser.getStoredAlbumNames();
 
+
         createAlbum = registerForActivityResult(new ActivityResultContracts.OpenMultipleDocuments(),
                 new AlbumCreation());
+
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);

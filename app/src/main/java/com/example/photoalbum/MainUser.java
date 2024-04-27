@@ -70,7 +70,7 @@ public class MainUser implements Serializable {
                 forEach(Photo::restoreUri);
     }
     public ArrayList<Photo> search(String key, String val){
-        ArrayList<Photo> foundPhotos=null;
+        ArrayList<Photo> foundPhotos=new ArrayList<>();
         if(key.equals("Person")){
             foundPhotos = albums.stream()
                 .flatMap(a -> a.getPhotos().stream())
@@ -78,8 +78,6 @@ public class MainUser implements Serializable {
                             c.getPerson().stream()
                                     .anyMatch(d -> d.startsWith(val)))
                     .collect(Collectors.toCollection(ArrayList::new));
-
-
 
         }
         else if(key.equals("Location")) {
@@ -89,9 +87,44 @@ public class MainUser implements Serializable {
         }
         return foundPhotos;
     }
-    public ArrayList<Photo> search(String key1,String val1, String key2, String val2,String operation){
+    public ArrayList<Photo> search(String key, String val, ArrayList<Photo> temp){
+        ArrayList<Photo> foundPhotos=new ArrayList<>();
+        if(key.equals("Person")){
+            foundPhotos = temp.stream() // Stream<Photos>
+                    .filter(xx -> xx.getPerson().stream()  // Filtering PHOTOS.
+                            .anyMatch(tt -> tt.startsWith(val)))
+                    .collect(Collectors.toCollection(ArrayList::new));
 
-        return null;
+        }
+        else if(key.equals("Location")) {
+            foundPhotos = temp.stream() // Stream<Photo>
+                    .filter(xxx -> xxx.getLocation().startsWith(val)) // Filtering PHOTOS
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+        return foundPhotos;
+    }
+    public ArrayList<Photo> search(String key1,String val1, String key2, String val2,String operation){
+        ArrayList<Photo> foundPhotos;
+        ArrayList<Photo> t2=null;
+
+        if(operation.equals("OR")){
+
+            foundPhotos = search(key1,val1);
+            ArrayList<Photo> t3 = foundPhotos;
+            t2 = search(key2, val2);
+
+            t2.stream()
+                    .filter(xx -> !t3.contains(xx))
+                    .forEach(yy -> t3.add(yy));
+            foundPhotos = t3;
+        }
+        else{
+            foundPhotos = search(key1, val1);
+            foundPhotos = search(key2, val2, foundPhotos);
+
+        }
+
+        return foundPhotos;
     }
 
 }

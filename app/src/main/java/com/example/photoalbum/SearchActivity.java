@@ -83,16 +83,21 @@ public class SearchActivity extends AppCompatActivity {
                 String firstSearch = person_search_input.getText().toString();
                 String secondSearch=null;
                 String operation=null;
+                secondSearch = location_search_input.getText().toString();
+
                 if(!secondItem.isEmpty()){
-                    secondSearch = location_search_input.getText().toString();
                     operation = or_radio.getText().toString();
                 }
-                if(operation!=null){
+                if(operation!=null && !firstSearch.isEmpty() && !secondSearch.isEmpty()){
                     foundPhotos = mainUser.search(firstItem, firstSearch, secondItem, secondSearch, operation);
                 }
-                else{
+                else if(firstSearch.isEmpty() && !secondSearch.isEmpty()){
+                    foundPhotos = mainUser.search(secondItem, secondSearch);
+                }
+                else if(!firstSearch.isEmpty() && secondSearch.isEmpty()){
                     foundPhotos = mainUser.search(firstItem, firstSearch);
                 }
+
                 if(foundPhotos.size()==0){
                     CharSequence text = "No photos found.";
                     int duration = Toast.LENGTH_SHORT;
@@ -104,9 +109,7 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
     private void populateListView(ArrayList<Photo> foundPhotos) {
-//        if (foundPhotos.isEmpty()) {
-//            return;
-//        }
+
         ArrayList<Uri> uris = new ArrayList<>();
         foundPhotos.forEach(p -> uris.add(p.getUri()));
         images = new ImageAdapter(this, uris);
