@@ -96,6 +96,7 @@ public class PhotoViewActivity extends AppCompatActivity {
         Button apply_changes_button = dialog.findViewById(R.id.apply_changes_button);
         Button delete_person = dialog.findViewById(R.id.delete_person);
         Button delete_location = dialog.findViewById(R.id.delete_location);
+        Button xx = dialog.findViewById(R.id.xx);
 
         person_tag_input.setText("");
         location_tag_input.setText("");
@@ -103,6 +104,11 @@ public class PhotoViewActivity extends AppCompatActivity {
         Photo curr = mainUser.getPhoto();
         image_preview.setImageURI(curr.getUri());
 
+        xx.setOnClickListener(new View.OnClickListener(){
+          public void onClick(View view){
+              dialog.dismiss();
+          }
+        });
         delete_person.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 photo.removePersons();
