@@ -153,15 +153,17 @@ public class PhotoViewActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String person = person_tag_input.getText().toString();
                 String location = location_tag_input.getText().toString();
-
-                String[] newPeople = person.split(",");
-                newPeople = Stream.of(newPeople)
-                        .map(str -> str.trim())
-                        .toArray(String[]::new);
+                String[] newPeople=null;
+                if(!person.isEmpty()) {
+                    newPeople = person.split(",");
+                    newPeople = Stream.of(newPeople)
+                            .map(str -> str.trim())
+                            .toArray(String[]::new);
+                }
                 if(!location.isEmpty()){
                     photo.changeLocation(location);
                 }
-                if(newPeople.length!=0) {
+                if(newPeople!=null) {
                     photo.addPerson(newPeople);
                 }
 
